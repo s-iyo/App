@@ -1,0 +1,15 @@
+{% extends 'myapp/base.html' %}
+
+    {% block title %}Spot List{% endblock %}
+
+    {% block content %}
+        <h1>Spot List</h1>
+        <ul>
+            {% for spot in spots %}
+                <li>
+                    <a>{{ spot.name }}<br>{{ spot.information }}<br></a>                    <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">Update</a>  <!-- ここを確認 -->
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'myapp:spot_create' %}" class="btn btn-primary">Create Spot</a>
+    {% endblock %}

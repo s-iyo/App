@@ -1,0 +1,147 @@
+[
+  {
+    "model": "myapp.area",
+    "pk": 1,
+    "fields": {
+      "name": "アジア"
+    }
+  },
+  {
+    "model": "myapp.area",
+    "pk": 2,
+    "fields": {
+      "name": "ヨーロッパ"
+    }
+  },
+  {
+    "model": "myapp.area",
+    "pk": 3,
+    "fields": {
+      "name": "北アメリカ"
+    }
+  },
+  {
+    "model": "myapp.area",
+    "pk": 4,
+    "fields": {
+      "name": "南アメリカ"
+    }
+  },
+  {
+    "model": "myapp.area",
+    "pk": 5,
+    "fields": {
+      "name": "アフリカ"
+    }
+  },
+  {
+    "model": "myapp.area",
+    "pk": 6,
+    "fields": {
+      "name": "オセアニア"
+    }
+  },
+  {
+    "model": "myapp.area",
+    "pk": 7,
+    "fields": {
+      "name": "南極"
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 1,
+    "fields": {
+      "name": "1月",
+      "number": 1
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 2,
+    "fields": {
+      "name": "2月",
+      "number": 2
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 3,
+    "fields": {
+      "name": "3月",
+      "number": 3
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 4,
+    "fields": {
+      "name": "4月",
+      "number": 4
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 5,
+    "fields": {
+      "name": "5月",
+      "number": 5
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 6,
+    "fields": {
+      "name": "6月",
+      "number": 6
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 7,
+    "fields": {
+      "name": "7月",
+      "number": 7
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 8,
+    "fields": {
+      "name": "8月",
+      "number": 8
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 9,
+    "fields": {
+      "name": "9月",
+      "number": 9
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 10,
+    "fields": {
+      "name": "10月",
+      "number": 10
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 11,
+    "fields": {
+      "name": "11月",
+      "number": 11
+    }
+  },
+  {
+    "model": "myapp.month",
+    "pk": 12,
+    "fields": {
+      "name": "12月",
+      "number": 12
+    }
+  }
+]

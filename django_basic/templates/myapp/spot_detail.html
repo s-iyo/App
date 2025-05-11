@@ -1,0 +1,4 @@
+{% extends 'myapp/p}  {# Countryモデルとのリレーションを仮定 #}
+    <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-primary">Update</a>
+    <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Back to List</a>
+{% endblock %}
