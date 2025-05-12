@@ -9,6 +9,7 @@ from .forms import SpotForm
 from django.shortcuts import render, redirect
 from .forms import SpotForm
 from .models import Spot, Area
+from collections import defaultdict
 
 def spot_create(request):
     if request.method == 'POST':
@@ -51,13 +52,35 @@ def country_create(request):
     return render(request, 'myapp/country_create.html', {'form': form})
 
 def spot_list(request):
-    areas = Area.objects.all()
-    spots_by_area = {}
-    for area in areas:
-        spots_by_area[area] = Spot.objects.filter(country__area=area).select_related('country__area')
+    spots_by_area = defaultdict(lambda: defaultdict(list))
+    spots = Spot.objects.all().select_related('country__area')
+
+    for spot in spots:
+        area = spot.country.area
+        country = spot.country
+        spots_by_area[area][country].append(spot)
+
+    # テンプレートで扱いやすい形式にデータを変換
+    areas_data = []
+    for area, countries in spots_by_area.items():
+        countries_data = []
+        for country, spots in countries.items():
+            countries_data.append({
+                'country': country,
+                'spots': spots,
+            })
+        # 国名でソート
+        countries_data.sort(key=lambda x: x['country'].name)
+        areas_data.append({
+            'area': area,
+            'countries': countries_data,
+        })
+
+    # エリア名でソート
+    areas_data.sort(key=lambda x: x['area'].name)
 
     context = {
-        'spots_by_area': spots_by_area,
+        'areas_data': areas_data,
     }
     return render(request, 'myapp/spot_list.html', context)
 

@@ -5,17 +5,23 @@
 {% block content %}
     <h1>Spot List</h1>
 
-    {% for area, spots in spots_by_area.items %}
-        <h2>{{ area.name }}</h2>
+    {% for area_data in areas_data %}
+        <h2>{{ area_data.area.name }}</h2>
         <ul>
-            {% for spot in spots %}
+            {% for country_data in area_data.countries %}
                 <li>
-                    <a>
-                        {{ spot.country.name }}<br>
-                        {{ spot.name }}<br>
-                        {{ spot.information }}<br>
-                    </a>
-                    <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">Update</a>
+                    <h3>{{ country_data.country.name }}</h3>
+                    <ul>
+                        {% for spot in country_data.spots %}
+                            <li>
+                                <a>
+                                    {{ spot.name }}<br>
+                                    {{ spot.information }}<br>
+                                </a>
+                                <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">Update</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </li>
             {% endfor %}
         </ul>
