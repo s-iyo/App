@@ -87,7 +87,7 @@ def spot_list(request):
 def spot_update(request, pk):
     spot = get_object_or_404(Spot, pk=pk)
     if request.method == 'POST':
-        form = SpotForm(request.POST, instance=spot)
+        form = SpotForm(request.POST, request.FILES, instance=spot)  # request.FILES を追加
         if form.is_valid():
             form.save()
             return redirect('myapp:spot_list')  # spot_list にリダイレクト

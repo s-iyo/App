@@ -1,7 +1,13 @@
-/* myapp/static/myapp/css/style.css */
-
 body {
-    padding-top: 70px; /* ヘッダーの高さに合わせて調整 */
+    padding-top: 70px;
+    background-image: url("/static/myapp/images/background.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: rgba(255, 255, 255, 0.7);
+    background-blend-mode: overlay;
+    background-position: center;
+    font-family: 'Arial', sans-serif;
+    color: #343a40;
 }
 
 /* デフォルトのスタイル */
@@ -9,23 +15,7 @@ body {
 color: black;
 }
 
-/* 現在のページに適用するスタイル（例: URLに #home が含まれる場合） */
-.nav-link[href="#home"] {
-color: blue;
-font-weight: bold;
-}
 
-/* 他のページにも同様にスタイルを適用 */
-.nav-link[href="#spots"] {
-color: green;
-font-weight: bold;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
-    color: #343a40;
-}
 .container {
     margin-top: 20px;
 }
@@ -46,4 +36,3 @@ label {
     margin-bottom: 5px;
     display: block;
 }
-

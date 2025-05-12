@@ -5,7 +5,7 @@
     {% block content %}
         <h1>観光地の削除</h1>
 
-        <p>本当に {{ spot.name }} を削除しますか？</p>
+        <h5>本当に {{ spot.name }} を削除しますか？</h5>
 
         <form method="post">
             {% csrf_token %}

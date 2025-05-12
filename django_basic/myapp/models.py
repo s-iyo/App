@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Area(models.Model):
     name = models.CharField('エリア名', max_length=100, unique=True)
 
@@ -25,7 +26,7 @@ class Spot(models.Model):
     name = models.CharField('観光地名', max_length=200)
     information = models.TextField('詳細情報')
     best_season = models.ManyToManyField(Month, verbose_name='ベストシーズン', blank=True)
-    photo = models.BinaryField('写真', blank=True, null=True)
+    photo = models.ImageField(upload_to='myapp/picture/', blank=True, null=True, verbose_name="画像")
 
     def __str__(self):
         return self.name
