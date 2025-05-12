@@ -41,13 +41,8 @@
       "name": "オセアニア"
     }
   },
-  {
-    "model": "myapp.area",
-    "pk": 7,
-    "fields": {
-      "name": "南極"
-    }
-  },
+
+
   {
     "model": "myapp.month",
     "pk": 1,
