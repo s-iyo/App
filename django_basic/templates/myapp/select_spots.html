@@ -3,21 +3,23 @@
 {% block title %}Select Spots{% endblock %}
 
 {% block content %}
-    <h1>Select Spots</h1>
+    <h1>行きたい観光地を選択してください</h1>
     <form method="post" action="{% url 'myapp:calculate_overlapping_months' %}">
         {% csrf_token %}
 
         {% for area_data in areas_data %}
-            <h2>{{ area_data.area.name }}</h2>
+            <h2 id="area_label_{{ area_data.area.pk }}" style="color: gray;">{{ area_data.area.name }}</h2>
             <ul>
                 {% for country_data in area_data.countries %}
                     <li>
-                        <h4>{{ country_data.country.name }}</h4>
+                        <h4 id="country_label_{{ country_data.country.pk }}" style="color: gray;">{{ country_data.country.name }}</h4>
                         <ul>
                             {% for spot in country_data.spots %}
                                 <li>
-                                    <input type="checkbox" id="spot_{{ spot.pk }}" name="selected_spots" value="{{ spot.pk }}">
-                                    <label for="spot_{{ spot.pk }}">{{ spot.name }}</label>
+                                    <input type="checkbox" id="spot_{{ spot.pk }}" name="selected_spots" value="{{ spot.pk }}"
+                                        data-area="{{ area_data.area.pk }}" data-country="{{ country_data.country.pk }}"
+                                        onchange="updateLabelColor(this)">
+                                    <label for="spot_{{ spot.pk }}" id="label_{{ spot.pk }}" style="display: inline-block; margin-left: 5px; color: gray;">{{ spot.name }}</label>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -27,4 +29,34 @@
         {% endfor %}
         <button type="submit" class="btn btn-primary">ベストシーズンを表示</button>
     </form>
+
+    <script>
+        function updateLabelColor(checkbox) {
+            var spotId = checkbox.value;
+            var areaId = checkbox.dataset.area;
+            var countryId = checkbox.dataset.country;
+
+            var label = document.getElementById('label_' + spotId);
+            var areaLabel = document.getElementById('area_label_' + areaId);
+            var countryLabel = document.getElementById('country_label_' + countryId);
+
+            if (checkbox.checked) {
+                label.style.color = 'black';
+                areaLabel.style.color = 'black';
+                countryLabel.style.color = 'black';
+            } else {
+                label.style.color = 'gray';
+                areaLabel.style.color = 'gray';
+                countryLabel.style.color = 'gray';
+            }
+        }
+
+        // ページ読み込み時に初期色を設定
+        document.addEventListener('DOMContentLoaded', function() {
+            var checkboxes = document.querySelectorAll('input[name="selected_spots"]');
+            checkboxes.forEach(function(checkbox) {
+                updateLabelColor(checkbox);
+            });
+        });
+    </script>
 {% endblock %}

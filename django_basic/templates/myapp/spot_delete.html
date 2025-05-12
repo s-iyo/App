@@ -1,0 +1,16 @@
+{% extends 'myapp/base.html' %}
+
+    {% block title %}スポット削除確認{% endblock %}
+
+    {% block content %}
+        <h1>観光地の削除</h1>
+
+        <p>本当に {{ spot.name }} を削除しますか？</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">削除</button>
+            <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
+
+        </form>
+    {% endblock %}

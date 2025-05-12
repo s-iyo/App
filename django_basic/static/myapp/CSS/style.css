@@ -4,3 +4,46 @@ body {
     padding-top: 70px; /* ヘッダーの高さに合わせて調整 */
 }
 
+/* デフォルトのスタイル */
+.nav-link {
+color: black;
+}
+
+/* 現在のページに適用するスタイル（例: URLに #home が含まれる場合） */
+.nav-link[href="#home"] {
+color: blue;
+font-weight: bold;
+}
+
+/* 他のページにも同様にスタイルを適用 */
+.nav-link[href="#spots"] {
+color: green;
+font-weight: bold;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+.container {
+    margin-top: 20px;
+}
+h1 {
+    color: #007bff;
+    margin-bottom: 30px;
+}
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+

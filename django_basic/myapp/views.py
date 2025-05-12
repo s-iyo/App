@@ -157,3 +157,10 @@ def calculate_overlapping_months(request):
             'areas_data': areas_data,
         }
         return render(request, 'myapp/select_spots.html', context)
+
+def spot_delete(request, pk):
+        spot = get_object_or_404(Spot, pk=pk)
+        if request.method == 'POST':
+            spot.delete()
+            return redirect('myapp:spot_list')
+        return render(request, 'myapp/spot_delete.html', {'spot': spot})
