@@ -8,7 +8,7 @@ from .forms import SpotForm
 
 from django.shortcuts import render, redirect
 from .forms import SpotForm
-from .models import Spot
+from .models import Spot, Area
 
 def spot_create(request):
     if request.method == 'POST':
@@ -51,11 +51,15 @@ def country_create(request):
     return render(request, 'myapp/country_create.html', {'form': form})
 
 def spot_list(request):
-    """
-    観光スポットの一覧を表示するビュー
-    """
-    spots = Spot.objects.all()  # すべての観光スポットを取得
-    return render(request, 'myapp/spot_list.html', {'spots': spots})  # 'myapp/spot_list.html' を指定
+    areas = Area.objects.all()
+    spots_by_area = {}
+    for area in areas:
+        spots_by_area[area] = Spot.objects.filter(country__area=area).select_related('country__area')
+
+    context = {
+        'spots_by_area': spots_by_area,
+    }
+    return render(request, 'myapp/spot_list.html', context)
 
 def spot_update(request, pk):
     spot = get_object_or_404(Spot, pk=pk)

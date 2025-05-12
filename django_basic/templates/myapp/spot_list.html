@@ -1,15 +1,25 @@
 {% extends 'myapp/base.html' %}
 
-    {% block title %}Spot List{% endblock %}
+{% block title %}Spot List{% endblock %}
 
-    {% block content %}
-        <h1>Spot List</h1>
+{% block content %}
+    <h1>Spot List</h1>
+
+    {% for area, spots in spots_by_area.items %}
+        <h2>{{ area.name }}</h2>
         <ul>
             {% for spot in spots %}
                 <li>
-                    <a>{{ spot.name }}<br>{{ spot.information }}<br></a>                    <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">Update</a>  <!-- ここを確認 -->
+                    <a>
+                        {{ spot.country.name }}<br>
+                        {{ spot.name }}<br>
+                        {{ spot.information }}<br>
+                    </a>
+                    <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">Update</a>
                 </li>
             {% endfor %}
         </ul>
-        <a href="{% url 'myapp:spot_create' %}" class="btn btn-primary">Create Spot</a>
-    {% endblock %}
+    {% endfor %}
+
+    <a href="{% url 'myapp:spot_create' %}" class="btn btn-primary">Create Spot</a>
+{% endblock %}
