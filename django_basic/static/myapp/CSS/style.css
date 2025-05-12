@@ -3,7 +3,7 @@ body {
     background-image: url("/static/myapp/images/background.png");
     background-repeat: no-repeat;
     background-size: contain;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(232, 232, 232, 0.8);
     background-blend-mode: overlay;
     background-position: center;
     font-family: 'Arial', sans-serif;
@@ -22,16 +22,56 @@ h1 {
     color: #007bff;
     margin-bottom: 30px;
 }
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
+
 label {
     font-weight: bold;
     margin-bottom: 5px;
     display: block;
+}
+
+.folder-structure {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.folder-item {
+    margin-bottom: 5px;
+}
+
+.folder-toggle {
+    cursor: pointer;
+    display: block;
+    padding: 5px;
+}
+
+.folder-toggle:before {
+    content: "\25B6";
+    margin-right: 5px;
+}
+
+.folder-item.expanded > .folder-toggle:before {
+    content: "\25BC";
+}
+
+.folder-content {
+    display: none;
+    list-style: none;
+    padding-left: 20px;
+}
+
+.folder-item.expanded > .folder-content {
+    display: block;
+}
+
+/* リスト表示の文字サイズ */
+.area{
+    font-size: x-large;
+}
+
+.country{
+    font-size: large;
+}
+
+.info{
+    font-size: xx-small;
 }

@@ -1,35 +1,44 @@
 {% extends 'myapp/base.html' %}
 
+{% load static %}
+
 {% block title %}Spot List{% endblock %}
 
 {% block content %}
     <h1>観光地リスト</h1>
 
-    {% for area_data in areas_data %}
-        <h2>{{ area_data.area.name }}</h2>
-        <ul>
-            {% for country_data in area_data.countries %}
-                <li>
-                    <h4>{{ country_data.country.name }}</h4>
-                    <ul>
-                        {% for spot in country_data.spots %}
-                            <li>
-                                <a>
-                                    {{ spot.name }}<br>
-                                    {{ spot.information }}<br>
-                                    {% if spot.photo %}
-                                        <img src="{{ spot.photo.url }}" alt="{{ spot.name }}">
-                                    {% endif %}
-                                </a>
-                                <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">情報を更新</a>
-                                <a href="{% url 'myapp:spot_delete' pk=spot.pk %}" class="btn btn-danger">削除</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
+    <ul class="folder-structure">
+        {% for area_data in areas_data %}
+            <li class="folder-item area">
+                <span class="folder-toggle" id = "area">{{ area_data.area.name }}</span>
+                <ul class="folder-content">
+                    {% for country_data in area_data.countries %}
+                        <li class="folder-item country">
+                            <span class="folder-toggle" id = "country">{{ country_data.country.name }}</span>
+                            <ul class="folder-content">
+                                {% for spot in country_data.spots %}
+                                    <li class="spot" id = "info">
+                                        <a>
+                                            {{ spot.name }}<br>
+                                            {{ spot.information }}<br>
+                                            {% if spot.photo %}
+                                                <img src="{{ spot.photo.url }}" alt="{{ spot.name }}">
+                                            {% endif %}
+                                        </a>
+                                        <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">情報を更新</a>
+                                        <a href="{% url 'myapp:spot_delete' pk=spot.pk %}" class="btn btn-danger">削除</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
 
     <a href="{% url 'myapp:spot_create' %}" class="btn btn-primary">Create Spot</a>
+
+    <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+    <script src="{% static 'myapp/js/script.js' %}"></script>
 {% endblock %}

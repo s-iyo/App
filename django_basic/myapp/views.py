@@ -2,13 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .forms import SpotForm, CountryForm
 from .models import Spot
-
-from django.shortcuts import render, redirect
-from .forms import SpotForm
-
-from django.shortcuts import render, redirect
-from .forms import SpotForm
-from .models import Spot, Area
 from collections import defaultdict
 
 def spot_create(request):
