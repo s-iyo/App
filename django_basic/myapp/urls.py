@@ -10,4 +10,9 @@ urlpatterns = [
     path('country/create/', views.country_create, name='country_create'),  # 国作成ページのURLを追加
     path('spot/list/', views.spot_list, name='spot_list'),  # spot_list の URL パターンを追加
     path('spot/<int:pk>/update/', views.spot_update, name='spot_update'),  # spot_update の URL パターンを追加
+    path('spot/create/', views.spot_create, name='spot_create'),
+    path('spot/<int:pk>/photo/', views.spot_photo, name='spot_photo'),
+    path('country/create/', views.country_create, name='country_create'),
+    path('spot/<int:pk>/update/', views.spot_update, name='spot_update'),
+    path('spot/select/', views.calculate_overlapping_months, name='calculate_overlapping_months'),
 ]

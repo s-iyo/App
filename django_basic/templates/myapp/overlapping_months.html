@@ -1,0 +1,29 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Overlapping Months{% endblock %}
+
+{% block content %}
+    <h1>Overlapping Months</h1>
+
+    {% if selected_spots %}
+        <h4>選択した観光地</h4>
+        <ul>
+            {% for spot in selected_spots %}
+                <li>{{ spot.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if overlapping_months %}
+        <h4>重複するベストシーズン</h4>
+        <ul>
+            {% for month in overlapping_months %}
+                <li>{{ month.name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>重複するベストシーズンは見つかりませんでした。</p>
+    {% endif %}
+
+    <a href="{% url 'myapp:spot_list' %}">Homeに戻る</a>
+{% endblock %}

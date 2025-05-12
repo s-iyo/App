@@ -1,0 +1,31 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Select Spots{% endblock %}
+
+{% block content %}
+    <h1>Select Spots</h1>
+    <form method="post" action="{% url 'myapp:calculate_overlapping_months' %}">
+        {% csrf_token %}
+
+        {% for area_data in areas_data %}
+            <h2>{{ area_data.area.name }}</h2>
+            <ul>
+                {% for country_data in area_data.countries %}
+                    <li>
+                        <h4>{{ country_data.country.name }}</h4>
+                        <ul>
+                            {% for spot in country_data.spots %}
+                                <li>
+                                    <input type="checkbox" id="spot_{{ spot.pk }}" name="selected_spots" value="{{ spot.pk }}">
+                                    <label for="spot_{{ spot.pk }}">{{ spot.name }}</label>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+
+        <button type="submit">ベストシーズンを表示</button>
+    </form>
+{% endblock %}
