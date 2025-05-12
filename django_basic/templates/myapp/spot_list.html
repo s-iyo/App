@@ -3,7 +3,7 @@
 {% block title %}Spot List{% endblock %}
 
 {% block content %}
-    <h1>Spot List</h1>
+    <h1>観光地リスト</h1>
 
     {% for area_data in areas_data %}
         <h2>{{ area_data.area.name }}</h2>
@@ -18,7 +18,7 @@
                                     {{ spot.name }}<br>
                                     {{ spot.information }}<br>
                                 </a>
-                                <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">Update</a>
+                                <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">情報を更新</a>
                             </li>
                         {% endfor %}
                     </ul>
