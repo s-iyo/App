@@ -22,7 +22,7 @@
                                             {{ spot.name }}<br>
                                             {{ spot.information }}<br>
                                             {% if spot.photo %}
-                                                <img src="{{ spot.photo.url }}" alt="{{ spot.name }}">
+                                                <img src="{{ spot.photo.url }}" alt="{{ spot.name }}" style="width: 200px; height: auto;"><br>
                                             {% endif %}
                                         </a>
                                         <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">情報を更新</a>
