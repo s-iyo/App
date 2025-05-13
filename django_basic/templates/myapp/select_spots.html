@@ -20,6 +20,10 @@
                                         data-area="{{ area_data.area.pk }}" data-country="{{ country_data.country.pk }}"
                                         onchange="updateLabelColor(this)">
                                     <label for="spot_{{ spot.pk }}" id="label_{{ spot.pk }}" style="display: inline-block; margin-left: 5px; color: gray;">{{ spot.name }}</label>
+                                    <br>  <!-- 名前と画像を改行で区切る -->
+                                    {% if spot.photo %}
+                                        <img src="{{ spot.photo.url }}" alt="{{ spot.name }}" width="200">  <!-- 画像を表示 -->
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>
