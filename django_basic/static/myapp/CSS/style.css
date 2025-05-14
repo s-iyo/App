@@ -75,3 +75,25 @@ label {
 .info{
     font-size: xx-small;
 }
+
+
+body {
+    display: flex; /* Flexboxを使用 */
+}
+
+.sidebar {
+    width: 200px; /* サイドバーの幅 */
+    background-color: #f8f9fa; /* 背景色 */
+    padding: 20px;
+    height: 100vh; /* 画面全体に表示 */
+    position: fixed; /* 固定表示 */
+    top: 0;
+    left: 0;
+    overflow-y: auto; /* コンテンツが多い場合にスクロール可能にする */
+}
+
+.content {
+    margin-left: 220px; /* サイドバーの幅+α */
+    padding: 20px;
+    width: 100%; /* コンテンツ領域の幅 */
+}
