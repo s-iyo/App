@@ -15,16 +15,17 @@
                         <h4 id="country_label_{{ country_data.country.pk }}" style="color: gray;">{{ country_data.country.name }}</h4>
                         <div class="d-flex flex-wrap">
                             {% for spot in country_data.spots %}
-                                <div style="margin-right: 10px; margin-bottom: 10px;">
+                                <div style="margin-right: 10px; margin-bottom: 20px; width: 250px;">
                                     <label for="spot_{{ spot.pk }}" style="cursor: pointer; display: block;">
                                         <input type="checkbox" id="spot_{{ spot.pk }}" name="selected_spots" value="{{ spot.pk }}"
                                             data-area="{{ area_data.area.pk }}" data-country="{{ country_data.country.pk }}"
                                             onchange="updateLabelColor(this); updateImageOpacity(this)" style="display: none;">
-                                        <span id="label_{{ spot.pk }}" style="display: block; margin-left: 5px; color: gray;">{{ spot.name }}</span>
                                         {% if spot.photo %}
                                             <img src="{{ spot.photo.url }}" alt="{{ spot.name }}" width="200" id="image_{{ spot.pk }}"
-                                                 style="opacity: 0.5; transition: opacity 0.3s; display: block;">
+                                                 style="opacity: 0.5; transition: opacity 0.3s; display: block; margin-bottom: 5px;">
                                         {% endif %}
+                                        <span id="label_{{ spot.pk }}" style="display: block; margin-left: 5px; color: gray; font-weight: bold;">{{ spot.name }}</span>
+                                        <p style="margin-top: 5px; color: #555;">{{ spot.information }}</p>
                                     </label>
                                 </div>
                             {% endfor %}
