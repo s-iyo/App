@@ -1,41 +1,36 @@
 {% extends 'myapp/base.html' %}
-
 {% load static %}
 
 {% block title %}Spot List{% endblock %}
 
 {% block content %}
-    <h1>観光地リスト</h1>
-
-    <ul class="folder-structure">
-        {% for area_data in areas_data %}
-            <li class="folder-item area">
-                <span class="folder-toggle" id = "area">{{ area_data.area.name }}</span>
-                <ul class="folder-content">
-                    {% for country_data in area_data.countries %}
-                        <li class="folder-item country">
-                            <span class="folder-toggle" id = "country">{{ country_data.country.name }}</span>
-                            <ul class="folder-content">
-                                {% for spot in country_data.spots %}
-                                    <li class="spot" id = "info">
-                                        <a>
-                                            {{ spot.name }}<br>
-                                            {{ spot.information }}<br>
-                                            {% if spot.photo %}
-                                                <img src="{{ spot.photo.url }}" alt="{{ spot.name }}" style="width: 200px; height: auto;"><br>
-                                            {% endif %}
-                                        </a>
-                                        <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">情報を更新</a>
-                                        <a href="{% url 'myapp:spot_delete' pk=spot.pk %}" class="btn btn-danger">削除</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </li>
+    {% for area_data in areas_data %}
+        <div style="position: sticky; top: 0; background-color: white; z-index: 2;">
+            <h3 style="margin-bottom: 0;">{{ area_data.area.name }}</h3>
+        </div>
+        {% for country_data in area_data.countries %}
+            <div style="position: sticky; top: 36px; background-color: white; z-index: 1;">
+                <h4 style="margin-bottom: 0;">{{ country_data.country.name }}</h4>
+            </div>
+            <div class="d-flex flex-row" style="overflow-x: hidden;"> {# overflow-x: hidden; に変更 #}
+                {% for spot in country_data.spots %}
+                    <div class="card m-2" style="width: 15rem; flex-shrink: 0;">
+                        {% if spot.photo %}
+                            <img src="{{ spot.photo.url }}" class="card-img-top rounded" alt="{{ spot.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ spot.name }}</h5>
+                            <p class="card-text">{{ spot.information }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">情報を更新</a>
+                            <a href="{% url 'myapp:spot_delete' pk=spot.pk %}" class="btn btn-danger">削除</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         {% endfor %}
-    </ul>
+    {% endfor %}
 
     <a href="{% url 'myapp:spot_create' %}" class="btn btn-primary">Create Spot</a>
 
