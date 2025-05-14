@@ -13,7 +13,7 @@
                 {% for country_data in area_data.countries %}
                     <li>
                         <h4 id="country_label_{{ country_data.country.pk }}" style="color: gray;">{{ country_data.country.name }}</h4>
-                        <div class="d-flex flex-wrap">
+                        <div class="d-flex flex-nowrap" style="overflow-x: auto;">
                             {% for spot in country_data.spots %}
                                 <div style="margin-right: 10px; margin-bottom: 20px; width: 250px;">
                                     <label for="spot_{{ spot.pk }}" style="cursor: pointer; display: block;">

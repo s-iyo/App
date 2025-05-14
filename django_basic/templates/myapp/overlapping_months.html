@@ -7,11 +7,17 @@
 
     {% if selected_spots %}
         <h4>選択した観光地</h4>
-        <ul>
+        <div class="d-flex flex-wrap">
             {% for spot in selected_spots %}
-                <li>{{ spot.name }}</li>
+                <div style="margin-right: 10px; margin-bottom: 20px; width: 200px; text-align: center;">
+                    {% if spot.photo %}
+                        <img src="{{ spot.photo.url }}" alt="{{ spot.name }}" width="180" style="margin-bottom: 5px; display: block; margin-left: auto; margin-right: auto;">
+                    {% endif %}
+                    <div style="font-weight: bold; margin-bottom: 5px;">{{ spot.name }}</div>
+                    <div style="color: #555; font-size: 0.9em; text-align: left;">{{ spot.information }}</div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     {% endif %}
 
     {% if overlapping_months %}
@@ -25,5 +31,5 @@
         <p>重複するベストシーズンは見つかりませんでした。</p>
     {% endif %}
 
-    <a href="{% url 'myapp:spot_list' %}"class="btn btn-primary">Homeに戻る</a>
+    <a href="{% url 'myapp:spot_list' %}" class="btn btn-primary">Homeに戻る</a>
 {% endblock %}
