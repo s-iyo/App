@@ -3,8 +3,8 @@
 {% block title %}Overlapping Months{% endblock %}
 
 {% block content %}
+<div style="margin-left: 220px;">
     <h1>ベストシーズン</h1>
-
     {% if selected_spots %}
         <h4>選択した観光地</h4>
         <div class="d-flex flex-wrap">
@@ -31,5 +31,6 @@
         <p>重複するベストシーズンは見つかりませんでした。</p>
     {% endif %}
 
-    <a href="{% url 'myapp:spot_list' %}" class="btn btn-primary">Homeに戻る</a>
-{% endblock %}
+    <a href="{% url 'myapp:spot_list' %}" class="btn btn-primary">リストに戻る</a>
+</div>
+    {% endblock %}

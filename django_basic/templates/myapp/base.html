@@ -8,78 +8,88 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
     <style>
-        .sidebar {
-            width: 220px;
-            background-color: #fff4f4;
-            padding: 20px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            overflow-y: auto;
-            border-radius: 0px 30px 0px 0px; /* 上左、上右、下右、下左 */
-        }
+    .sidebar {
+        width: 220px;
+        background-color: #fff4f4;
+        padding: 20px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow-y: auto;
+        border-radius: 0px 30px 0px 0px; /* 上左、上右、下右、下左 */
+    }
 
-        /*リスト*/
-        .sidebar2{
-            width: 200px;
-            background-color: #ffeaea;
-            padding: 20px;
-            height: 100vh;
-            position: fixed;
-            top: 100;
-            left: 0;
-            overflow-y: auto;
-            border-radius: 0px 30px 0px 0px;
-        }
+    /*リスト*/
+    .sidebar2{
+        width: 200px;
+        background-color: #ffeaea;
+        padding: 20px;
+        height: 100vh;
+        position: fixed;
+        top: 100;
+        left: 0;
+        overflow-y: auto;
+        border-radius: 0px 30px 0px 0px;
+    }
 
-        /*観光地を追加*/
-        .sidebar3{
-            width: 180px;
-            background-color: #ffd5d5;
-            padding: 20px;
-            height: 100vh;
-            position: fixed;
-            top: 100;
-            left: 0;
-            overflow-y: auto;
-            border-radius: 0px 30px 0px 0px;
-        }
+    /*観光地を追加*/
+    .sidebar3{
+        width: 180px;
+        background-color: #ffd5d5;
+        padding: 20px;
+        height: 100vh;
+        position: fixed;
+        top: 100;
+        left: 0;
+        overflow-y: auto;
+        border-radius: 0px 30px 0px 0px;
+    }
 
-        /*国を追加*/
-        .sidebar4{
-            width: 160px;
-            background-color: #ffaaaa;
-            padding: 20px;
-            height: 100vh;
-            position: fixed;
-            top: 100;
-            left: 0;
-            overflow-y: auto;
-            border-radius: 0px 30px 0px 0px;
-        }
+    /*国を追加*/
+    .sidebar4{
+        width: 160px;
+        background-color: #ffaaaa;
+        padding: 20px;
+        height: 100vh;
+        position: fixed;
+        top: 100;
+        left: 0;
+        overflow-y: auto;
+        border-radius: 0px 30px 0px 0px;
+    }
 
-        /*観光地を選択*/
-        .sidebar5{
-            width: 140px;
-            background-color: #ff8080;
-            padding: 20px;
-            height: 100vh;
-            position: fixed;
-            top: 100;
-            left: 0;
-            overflow-y: auto;
-            border-radius: 0px 30px 0px 0px;
-        }
+    /*観光地を選択*/
+    .sidebar5{
+        width: 140px;
+        background-color: #ff8080;
+        padding: 20px;
+        height: 100vh;
+        position: fixed;
+        top: 100;
+        left: 0;
+        overflow-y: auto;
+        border-radius: 0px 30px 0px 0px;
+    }
 
-        .content {
-            padding: 20px;
-            width: 100%; /* コンテンツ領域の幅 */
-        }
+    .content {
+        padding: 20px;
+        width: 100%; /* コンテンツ領域の幅 */
+    }
 
-        .navbar-brand {
+    .navbar-brand {
+        color: black;
         font-family: sans-serif;
         font-size: 30px;
+        font-weight: bold;
+    }
+
+    .nav-link{
+        color: black;
+    }
+
+    .nav-link:hover {
+        color: black;
         font-weight: bold;
     }
     </style>

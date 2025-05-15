@@ -3,6 +3,7 @@
     {% block title %}スポット削除確認{% endblock %}
 
     {% block content %}
+    <div style="margin-left: 220px;">
         <h1>観光地の削除</h1>
 
         <h5>本当に {{ spot.name }} を削除しますか？</h5>
@@ -13,4 +14,5 @@
             <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
 
         </form>
+    </div>
     {% endblock %}

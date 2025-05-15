@@ -3,6 +3,7 @@
 {% block title %}Update Spot{% endblock %}
 
 {% block content %}
+<div style="margin-left: 220px;">
     <h1>情報を更新</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -37,4 +38,5 @@
         <button type="submit" class="btn btn-primary">情報を更新</button>
         <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
     </form>
+</div>
 {% endblock %}
