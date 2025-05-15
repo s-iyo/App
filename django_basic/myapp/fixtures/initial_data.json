@@ -138,5 +138,49 @@
       "name": "12月",
       "number": 12
     }
+  },
+
+
+  {
+    "model": "myapp.tags",
+    "pk": 1,
+    "fields": {
+      "name": "自然"
+    }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 2,
+    "fields": {
+      "name": "文化"
+    }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 3,
+    "fields": {
+      "name": "歴史"
+    }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 4,
+    "fields": {
+      "name": "エンターテインメント"
+    }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 5,
+    "fields": {
+      "name": "ショッピング"
+    }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 6,
+    "fields": {
+      "name": "ランドマーク"
+    }
   }
 ]
