@@ -8,19 +8,19 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
-            <label for="{{ form.country.id_for_label }}">国:</label>
+            <label for="{{ form.country.id_for_label }}">国</label>
             {{ form.country }}
         </div>
         <div class="form-group">
-            <label for="{{ form.name.id_for_label }}">名前:</label>
+            <label for="{{ form.name.id_for_label }}">名前</label>
             {{ form.name }}
         </div>
         <div class="form-group">
-            <label for="{{ form.information.id_for_label }}">情報:</label>
+            <label for="{{ form.information.id_for_label }}">情報</label>
             {{ form.information }}
         </div>
         <div class="form-group">
-            <label for="{{ form.best_season.id_for_label }}">ベストシーズン:</label>
+            <label for="{{ form.best_season.id_for_label }}">ベストシーズン</label>
             <div class="d-flex flex-wrap">
                 {% for month in form.best_season %}
                     <div class="mr-2 mb-2">
@@ -31,11 +31,7 @@
                 {% endfor %}
         </div>
         <div class="form-group">
-            <label for="{{ form.photo.id_for_label }}">写真:</label>
-            {{ form.photo }}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.tag.id_for_label }}">タグ:</label>
+            <label for="{{ form.tag.id_for_label }}">タグ</label>
             <div>
             {% for tags in form.tag %}
             <label class="btn {% if tag.value %}btn-primary{% else %}btn-outline-primary{% endif %}">
@@ -43,6 +39,10 @@
             </label>
             {% endfor %}
             </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.photo.id_for_label }}">写真</label>
+            {{ form.photo }}
         </div>
         <button type="submit" class="btn btn-primary">作成</button>
         <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
