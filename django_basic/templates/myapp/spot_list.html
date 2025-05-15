@@ -15,7 +15,7 @@
             </div>
             <div class="d-flex flex-row" style="overflow-x: auto;">
                 {% for spot in country_data.spots %}
-                <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="card m-2 spot-link" data-spot-url="{% url 'myapp:spot_update' pk=spot.pk %}" style="width: 15rem; flex-shrink: 0; text-decoration: none; color: inherit;">
+                <a href="{% url 'myapp:spot_detail' pk=spot.pk %}" class="card m-2 spot-link" data-spot-url="{% url 'myapp:spot_detail' pk=spot.pk %}" style="width: 15rem; flex-shrink: 0; text-decoration: none; color: inherit;">
                     {% if spot.photo %}
                             <img src="{{ spot.photo.url }}" class="card-img-top rounded" alt="{{ spot.name }}">
                         {% endif %}
@@ -28,7 +28,7 @@
                                 {% if spot.tag.all %}
                                     <p>
                                     {% for tag in spot.tag.all %}
-                                        <span class="badge bg-light">{{ tag.name }}</span>
+                                        <span class="badge bg-info">{{ tag.name }}</span>
                                     {% endfor %}
                                     </p>
                                 {% endif %}

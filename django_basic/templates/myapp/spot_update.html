@@ -47,6 +47,6 @@
         </div>
         <button type="submit" class="btn btn-primary">情報を更新</button>
         <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
-    </form>
+        <a href="{% url 'myapp:spot_delete' pk=spot.pk %}" class="btn btn-danger">削除</a>    </form>
 </div>
 {% endblock %}

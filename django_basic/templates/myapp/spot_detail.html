@@ -1,0 +1,50 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block title %}Spot Detail{% endblock %}
+
+{% block content %}
+<div style="margin-left: 220px;">
+    <div class="container">
+        <h3>{{ spot.name }}</h3>
+
+        {% if spot.photo %}
+            <img src="{{ spot.photo.url }}" alt="{{ spot.name }}" class="img-fluid rounded">
+        {% endif %}
+
+        <p>{{ spot.information }}</p>
+
+        <div>
+            <p>
+                <strong>エリア:</strong> {{ spot.country.area.name }}
+            </p>
+            <p>
+                <strong>国:</strong> {{ spot.country.name }}
+            </p>
+
+            {% if spot.best_season %}
+                <p>
+                    <strong>ベストシーズン:</strong>
+                    {% for month in spot.best_season.all %}
+                        <span class="badge bg-warning">{{ month.name }}</span>
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+
+        <div>
+            {% if spot.tag.all %}
+                <p>
+                    <strong>タグ:</strong>
+                    {% for tag in spot.tag.all %}
+                        <span class="badge bg-info">{{ tag.name }}</span>
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+
+        <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-primary">編集</a>
+        <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">リストに戻る</a>
+    </div>
+</div>
+{% endblock %}
