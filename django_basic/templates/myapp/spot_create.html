@@ -3,6 +3,7 @@
     {% block title %}Create Spot{% endblock %}
 
     {% block content %}
+    <div style="margin-left: 220px;">
         <h1>観光地を追加</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -29,4 +30,5 @@
             <button type="submit" class="btn btn-primary">作成</button>
             <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
         </form>
+    </div>
     {% endblock %}

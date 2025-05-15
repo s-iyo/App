@@ -3,6 +3,7 @@
     {% block title %}Create Country{% endblock %}
 
     {% block content %}
+    <div style="margin-left: 220px;">
         <h1>国を追加</h1>
         <form method="post">
             {% csrf_token %}
@@ -10,4 +11,5 @@
             <button type="submit" class="btn btn-primary">作成</button>
             <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
         </form>
+    </div>
     {% endblock %}
