@@ -1,64 +1,32 @@
 {% extends 'myapp/base.html' %}
 
-{% block title %}Create Spot{% endblock %}
+    {% block title %}Create Spot{% endblock %}
 
-{% block content %}
-    <h1>観光地を追加</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="{{ form.country.id_for_label }}">国:</label>
-            {{ form.country }}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.name.id_for_label }}">名前:</label>
-            {{ form.name }}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.information.id_for_label }}">情報:</label>
-            {{ form.information }}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.best_season.id_for_label }}">ベストシーズン:</label>
-            <div class="d-flex flex-wrap">
-                {% for choice in form.best_season %}
-                    <div class="mr-2 mb-2">
-                        <button type="button"
-                                class="btn btn-outline-primary"
-                                data-month-value="{{ choice.choice_value }}"
-                                style="margin-right: 5px;">
-                            {{ choice.choice_label }}
-                        </button>
-                    </div>
-                {% endfor %}
-                <input type="hidden" name="{{ form.best_season.name }}" id="best_season_values" value="">
+    {% block content %}
+        <h1>観光地を追加</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.country.id_for_label }}">国:</label>
+                {{ form.country }}
             </div>
-        </div>
-        <div class="form-group">
-            <label for="{{ form.photo.id_for_label }}">写真:</label>
-            {{ form.photo }}
-        </div>
-        <button type="submit" class="btn btn-primary">作成</button>
-        <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
-    </form>
-
-    <script>
-        const monthButtons = document.querySelectorAll('.btn-outline-primary');
-        const bestSeasonValuesInput = document.getElementById('best_season_values');
-        let selectedMonths = [];
-
-        monthButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const monthValue = this.dataset.monthValue;
-                if (this.classList.contains('active')) {
-                    this.classList.remove('active');
-                    selectedMonths = selectedMonths.filter(month => month !== monthValue);
-                } else {
-                    this.classList.add('active');
-                    selectedMonths.push(monthValue);
-                }
-                bestSeasonValuesInput.value = selectedMonths.join(',');
-            });
-        });
-    </script>
-{% endblock %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">名前:</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.information.id_for_label }}">情報:</label>
+                {{ form.information }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.best_season.id_for_label }}">ベストシーズン:</label>
+                {{ form.best_season }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.photo.id_for_label }}">写真:</label>
+                {{ form.photo }}
+            </div>
+            <button type="submit" class="btn btn-primary">作成</button>
+            <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    {% endblock %}

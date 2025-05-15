@@ -8,8 +8,10 @@ def spot_create(request):
     if request.method == 'POST':
         form = SpotForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            spot = form.save()  # フォームを保存
             return redirect('myapp:spot_list')
+        else:
+            print(form.errors)  # フォームのエラーをコンソールに出力
     else:
         form = SpotForm()
     return render(request, 'myapp/spot_create.html', {'form': form, 'active_page': 'spot_create'})
