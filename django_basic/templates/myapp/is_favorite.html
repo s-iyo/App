@@ -1,0 +1,97 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block title %}お気に入りスポット{% endblock %}
+
+{% block content %}
+<div style="margin-left: 220px;">
+    <h1 style="position: sticky; top: 0; background-color: white; z-index: 3;">お気に入りスポット一覧</h1>
+    {% if areas_data %}
+        {% for area_data in areas_data %}
+            <div style="position: sticky; top: 45px; background-color: white; z-index: 2;">
+                <h3 style="margin-bottom: 0; font-weight: bold;">{{ area_data.area.name }}</h3>
+            </div>
+                    {% for country_data in area_data.countries %}
+                    <div style="position: sticky; top: 75px; background-color: white; z-index: 1;">
+                        <h4 style="margin-bottom: 0;">{{ country_data.country.name }}</h4>
+                    </div>
+                <div class="d-flex flex-row" style="overflow-x: auto;">
+                    {% for spot in country_data.spots %}
+                    <div class="card m-2 spot-card" style="width: 15rem; flex-shrink: 0; position: relative;" data-spot-tags="{{ spot.get_tag_ids|join:',' }}" data-spot-months="{{ spot.get_month_ids|join:',' }}">
+                        <a href="{% url 'myapp:spot_detail' pk=spot.pk %}" class="spot-link" data-spot-url="{% url 'myapp:spot_detail' pk=spot.pk %}" style="text-decoration: none; color: inherit;">
+                            {% if spot.photo %}
+                                <img src="{{ spot.photo.url }}" class="card-img-top rounded" alt="{{ spot.name }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ spot.name|truncatechars:9 }}</h5>
+                                <p class="card-text">
+                                    {{ spot.information|truncatechars:24 }}
+                                </p>
+                                <div>
+                                    {% if spot.tag.all %}
+                                        <p>
+                                        {% for tag in spot.tag.all %}
+                                            <span class="badge bg-info">{{ tag.name }}</span>
+                                        {% endfor %}
+                                        </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                        <button class="favorite-button" data-spot-id="{{ spot.pk }}" style="position: absolute; top: 5px; right: 5px; background: none; border: none; padding: 0; cursor: pointer;">
+                            {% if spot.is_favorite %}
+                                <i class="fas fa-star fa-lg" style="color: gold;"></i>
+                            {% else %}
+                                <i class="far fa-star fa-lg" style="color: gray;"></i>
+                            {% endif %}
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <p>お気に入りに登録されたスポットはありません。</p>
+    {% endif %}
+</div>
+
+<link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="{% static 'myapp/js/script.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const favoriteButtons = document.querySelectorAll('.favorite-button');
+
+        favoriteButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const spotId = this.dataset.spotId;
+                const icon = this.querySelector('i');
+
+                fetch(`/myapp/spot/${spotId}/toggle_favorite/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.is_favorite) {
+                            icon.classList.remove('far');
+                            icon.classList.add('fas');
+                            icon.style.color = 'gold';
+                        } else {
+                            icon.classList.remove('fas');
+                            icon.classList.add('far');
+                            icon.style.color = 'gray';
+                        }
+                    });
+            });
+        });
+    });
+</script>
+<style>
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .spot-card {
+        position: relative;
+    }
+</style>
+{% endblock %}

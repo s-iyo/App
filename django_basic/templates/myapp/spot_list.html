@@ -1,5 +1,3 @@
-<!-- spot_list.html -->
-
 {% extends 'myapp/base.html' %}
 {% load static %}
 
@@ -29,26 +27,35 @@
             </div>
             <div class="d-flex flex-row" style="overflow-x: auto;">
                 {% for spot in country_data.spots %}
-                <a href="{% url 'myapp:spot_detail' pk=spot.pk %}" class="card m-2 spot-link" data-spot-url="{% url 'myapp:spot_detail' pk=spot.pk %}" style="width: 15rem; flex-shrink: 0; text-decoration: none; color: inherit;" data-spot-tags="{{ spot.get_tag_ids|join:',' }}" data-spot-months="{{ spot.get_month_ids|join:',' }}">
-                    {% if spot.photo %}
-                        <img src="{{ spot.photo.url }}" class="card-img-top rounded" alt="{{ spot.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ spot.name|truncatechars:9 }}</h5>
-                        <p class="card-text">
-                            {{ spot.information|truncatechars:24 }}
-                        </p>
-                        <div>
-                            {% if spot.tag.all %}
-                                <p>
-                                {% for tag in spot.tag.all %}
-                                    <span class="badge bg-info">{{ tag.name }}</span>
-                                {% endfor %}
-                                </p>
-                            {% endif %}
+                <div class="card m-2 spot-card" style="width: 15rem; flex-shrink: 0; position: relative;" data-spot-tags="{{ spot.get_tag_ids|join:',' }}" data-spot-months="{{ spot.get_month_ids|join:',' }}">
+                    <a href="{% url 'myapp:spot_detail' pk=spot.pk %}" class="spot-link" data-spot-url="{% url 'myapp:spot_detail' pk=spot.pk %}" style="text-decoration: none; color: inherit;">
+                        {% if spot.photo %}
+                            <img src="{{ spot.photo.url }}" class="card-img-top rounded" alt="{{ spot.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ spot.name|truncatechars:9 }}</h5>
+                            <p class="card-text">
+                                {{ spot.information|truncatechars:24 }}
+                            </p>
+                            <div>
+                                {% if spot.tag.all %}
+                                    <p>
+                                    {% for tag in spot.tag.all %}
+                                        <span class="badge bg-info">{{ tag.name }}</span>
+                                    {% endfor %}
+                                    </p>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                    <button class="favorite-button" data-spot-id="{{ spot.pk }}" style="position: absolute; top: 5px; right: 5px; background: none; border: none; padding: 0; cursor: pointer;">
+                        {% if spot.is_favorite %}
+                            <i class="fas fa-star fa-lg" style="color: gold;"></i>
+                        {% else %}
+                            <i class="far fa-star fa-lg" style="color: gray;"></i>
+                        {% endif %}
+                    </button>
+                </div>
                 {% endfor %}
             </div>
         {% endfor %}
@@ -56,9 +63,85 @@
 </div>
 
 <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="{% static 'myapp/js/script.js' %}"></script>
 <script>
+    let selectedTags = [];
+    let selectedMonths = [];
 
+    function toggleTag(button) {
+        const tagId = button.dataset.tagId;
+        const index = selectedTags.indexOf(tagId);
+
+        if (index === -1) {
+            selectedTags.push(tagId);
+            button.classList.add('selected');
+        } else {
+            selectedTags.splice(index, 1);
+            button.classList.remove('selected');
+        }
+
+        filterSpots();
+    }
+
+    function toggleMonth(button) {
+        const monthId = button.dataset.monthId;
+        const index = selectedMonths.indexOf(monthId);
+
+        if (index === -1) {
+            selectedMonths.push(monthId);
+            button.classList.add('selected');
+        } else {
+            selectedMonths.splice(index, 1);
+            button.classList.remove('selected');
+        }
+
+        filterSpots();
+    }
+
+    function filterSpots() {
+        const spotCards = document.querySelectorAll('.spot-card');
+
+        spotCards.forEach(card => {
+            let spotTags = card.dataset.spotTags ? card.dataset.spotTags.split(',') : [];
+            let spotMonths = card.dataset.spotMonths ? card.dataset.spotMonths.split(',') : [];
+
+            const tagMatch = selectedTags.length === 0 || selectedTags.every(tagId => spotTags.includes(tagId));
+            const monthMatch = selectedMonths.length === 0 || selectedMonths.every(monthId => spotMonths.includes(monthId));
+
+            if (tagMatch && monthMatch) {
+                card.style.display = 'block'; // cardを表示
+            } else {
+                card.style.display = 'none'; // cardを非表示
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const favoriteButtons = document.querySelectorAll('.favorite-button');
+
+        favoriteButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const spotId = this.dataset.spotId;
+                const icon = this.querySelector('i');
+
+                fetch(`/myapp/spot/${spotId}/toggle_favorite/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.is_favorite) {
+                            icon.classList.remove('far');
+                            icon.classList.add('fas');
+                            icon.style.color = 'gold';
+                        } else {
+                            icon.classList.remove('fas');
+                            icon.classList.add('far');
+                            icon.style.color = 'gray';
+                        }
+                    });
+            });
+        });
+    });
 </script>
 <style>
     ::-webkit-scrollbar {
@@ -71,6 +154,14 @@
 
     .badge-with-margin.selected {
         opacity: 1; /* 未選択状態では半透明 */
+    }
+
+    .badge-with-margin.selected {
+        opacity: 1; /* 未選択状態では半透明 */
+    }
+
+    .favorite-button:focus {
+        outline: none;
     }
 </style>
 {% endblock %}

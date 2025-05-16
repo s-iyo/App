@@ -5,6 +5,9 @@ from django.http import HttpResponse
 from .forms import SpotForm, CountryForm
 from collections import defaultdict
 from .models import Spot, Tags, Month
+from django.http import JsonResponse
+
+
 
 def spot_create(request):
     if request.method == 'POST':
@@ -48,7 +51,7 @@ def spot_list(request):
 
     if selected_tags:
         spots = spots.filter(tag__id__in=selected_tags)
-    
+
     if selected_months:
         spots = spots.filter(best_season__id__in=selected_months)
 
@@ -155,3 +158,41 @@ def spot_delete(request, pk):
         return redirect('myapp:spot_list')
     return render(request, 'myapp/spot_delete.html', {'spot': spot, 'active_page': 'spot_delete'})
 
+
+def toggle_favorite(request, pk):
+    spot = get_object_or_404(Spot, pk=pk)
+    spot.is_favorite = not spot.is_favorite
+    spot.save()
+    return JsonResponse({'is_favorite': spot.is_favorite})
+
+def is_favorite(request):
+    spots_by_area = defaultdict(lambda: defaultdict(list))
+    # is_favoriteがTrueのスポットのみを取得
+    spots = Spot.objects.filter(is_favorite=True).select_related('country__area')
+
+    for spot in spots:
+        area = spot.country.area
+        country = spot.country
+        spots_by_area[area][country].append(spot)
+
+    areas_data = []
+    for area, countries in spots_by_area.items():
+        countries_data = []
+        for country, spots in countries.items():
+            countries_data.append({
+                'country': country,
+                'spots': spots,
+            })
+        countries_data.sort(key=lambda x: x['country'].name)
+        areas_data.append({
+            'area': area,
+            'countries': countries_data,
+        })
+
+    areas_data.sort(key=lambda x: x['area'].name)
+
+    context = {
+        'areas_data': areas_data,
+        'active_page': 'is_favorite',  # active_pageを設定
+    }
+    return render(request, 'myapp/is_favorite.html', context)
