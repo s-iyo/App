@@ -1,3 +1,5 @@
+#models.py
+
 from django.db import models
 
 class Area(models.Model):
@@ -33,6 +35,7 @@ class Spot(models.Model):
     best_season = models.ManyToManyField(Month, verbose_name='ベストシーズン', blank=True)
     photo = models.ImageField(upload_to='myapp/picture/', blank=True, null=True, verbose_name="イメージ")
     tag = models.ManyToManyField(Tags, verbose_name='タグ', blank=True)
+    is_favorite = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
