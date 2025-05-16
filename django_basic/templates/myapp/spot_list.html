@@ -5,12 +5,24 @@
 
 {% block content %}
 <div style="margin-left: 220px;">
+    <div style="overflow-x: auto; white-space: nowrap; position: sticky; top: 0; background-color: white; z-index: 3; padding: 20px; text-align: right;">
+        <!-- タグを表示 -->
+        {% for tag in tags %}
+            <span class="badge bg-info badge-with-margin">{{ tag.name }}</span>
+        {% endfor %}
+    
+        <!-- 月を表示 -->
+        {% for month in months %}
+            <span class="badge bg-warning badge-with-margin">{{ month.name }}</span>
+        {% endfor %}
+    </div>
+
     {% for area_data in areas_data %}
-        <div style="position: sticky; top: 0; background-color: white; z-index: 2;">
+        <div style="position: sticky; top: 60px; background-color: white; z-index: 2;">
             <h3 style="margin-bottom: 0;">{{ area_data.area.name }}</h3>
         </div>
         {% for country_data in area_data.countries %}
-            <div style="position: sticky; top: 30px; background-color: white; z-index: 1;">
+            <div style="position: sticky; top: 90px; background-color: white; z-index: 1;">
                 <h4 style="margin-bottom: 0;">{{ country_data.country.name }}</h4>
             </div>
             <div class="d-flex flex-row" style="overflow-x: auto;">
@@ -40,8 +52,6 @@
         {% endfor %}
     {% endfor %}
 </div>
-
-<a href="{% url 'myapp:spot_create' %}" class="btn btn-primary">Create Spot</a>
 
 <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
 <script src="{% static 'myapp/js/script.js' %}"></script>

@@ -12,4 +12,5 @@ urlpatterns = [
     path('spot/<int:pk>/delete/', views.spot_delete, name='spot_delete'),   # 削除ページのURL
     path('spot/<int:pk>/detail/', views.spot_detail, name='spot_detail'),   # 観光地の詳細
     path('spot/select/', views.calculate_overlapping_months, name='calculate_overlapping_months'),  # ベストシーズンの表示
+    
 ]

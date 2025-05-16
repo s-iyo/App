@@ -137,3 +137,4 @@ def spot_delete(request, pk):
         spot.delete()
         return redirect('myapp:spot_list')
     return render(request, 'myapp/spot_delete.html', {'spot': spot, 'active_page': 'spot_delete'})
+

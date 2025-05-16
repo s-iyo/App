@@ -75,6 +75,7 @@
     .content {
         padding: 20px;
         width: 100%; /* コンテンツ領域の幅 */
+        margin-top: 0px; /* ヘッダーの高さ分だけ下げる */
     }
 
     .navbar-brand {
@@ -97,6 +98,12 @@
         color: black;
     }
 
+    /* リストのヘッダーのタグ */
+    .badge-with-margin {
+        font-size: 15px;
+        padding: 0.3em 0.5em; /* バッジのpaddingを調整 */
+    }
+
     </style>
 </head>
 <body>
@@ -104,26 +111,25 @@
         <a class="navbar-brand" href="#">Travel List</a>
         <ul class="nav flex-column">
             <div class="sidebar2">
-            <li class="nav-item">
-                <a class="nav-link {% if active_page == 'spot_list' %}font-weight-bold{% endif %}" href="{% url 'myapp:spot_list' %}">リスト</a>
-            </li>
-            <div class="sidebar3">
-            <li class="nav-item">
-                <a class="nav-link {% if active_page == 'spot_create' %}font-weight-bold{% endif %}" href="{% url 'myapp:spot_create' %}">観光地を追加</a>
-            </li>
-            <div class="sidebar4">
-            <li class="nav-item">
-                <a class="nav-link {% if active_page == 'country_create' %}font-weight-bold{% endif %}" href="{% url 'myapp:country_create' %}">国を追加</a>
-            </li>
-            <div class="sidebar5">
-            <li class="nav-item">
-                <a class="nav-link {% if active_page == 'calculate_overlapping_months' %}font-weight-bold{% endif %}" href="{% url 'myapp:calculate_overlapping_months' %}">観光地を選択</a>
-            </li>
-        </div>
-    </div>
-</div>
-        </div>
-        </div>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_page == 'spot_list' %}font-weight-bold{% endif %}" href="{% url 'myapp:spot_list' %}">リスト</a>
+                </li>
+                <div class="sidebar3">
+                    <li class="nav-item">
+                        <a class="nav-link {% if active_page == 'spot_create' %}font-weight-bold{% endif %}" href="{% url 'myapp:spot_create' %}">観光地を追加</a>
+                    </li>
+                    <div class="sidebar4">
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_page == 'country_create' %}font-weight-bold{% endif %}" href="{% url 'myapp:country_create' %}">国を追加</a>
+                        </li>
+                        <div class="sidebar5">
+                            <li class="nav-item">
+                                <a class="nav-link {% if active_page == 'calculate_overlapping_months' %}font-weight-bold{% endif %}" href="{% url 'myapp:calculate_overlapping_months' %}">観光地を選択</a>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ul>
     </div>
 
