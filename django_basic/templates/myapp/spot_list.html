@@ -56,58 +56,6 @@
 <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
 <script src="{% static 'myapp/js/script.js' %}"></script>
 <script>
-    let selectedTags = [];
-    let selectedMonths = [];
 
-    function toggleTag(button) {
-        const tagId = button.dataset.tagId;
-        const index = selectedTags.indexOf(tagId);
-
-        if (index === -1) {
-            selectedTags.push(tagId);
-            button.classList.add('selected');
-        } else {
-            selectedTags.splice(index, 1);
-            button.classList.remove('selected');
-        }
-
-        filterSpots();
-    }
-
-    function toggleMonth(button) {
-        const monthId = button.dataset.monthId;
-        const index = selectedMonths.indexOf(monthId);
-
-        if (index === -1) {
-            selectedMonths.push(monthId);
-            button.classList.add('selected');
-        } else {
-            selectedMonths.splice(index, 1);
-            button.classList.remove('selected');
-        }
-
-        filterSpots();
-    }
-
-    function filterSpots() {
-        const spotCards = document.querySelectorAll('.spot-link');
-
-        spotCards.forEach(card => {
-            const spotTags = card.dataset.spotTags.split(',').filter(Boolean);
-            const spotMonths = card.dataset.spotMonths.split(',').filter(Boolean);
-
-            // Check if all selected tags are present in the spot's tags
-            const tagMatch = selectedTags.every(tagId => spotTags.includes(tagId));
-
-            // If no tags are selected, show all spots. Otherwise, only show spots that match all selected tags.
-            const shouldDisplay = selectedTags.length === 0 || tagMatch;
-
-            if (shouldDisplay) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
 </script>
 {% endblock %}
