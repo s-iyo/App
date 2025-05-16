@@ -48,6 +48,3 @@ let selectedTags = [];
             }
         });
     }
-
-
-    
