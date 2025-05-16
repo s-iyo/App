@@ -18,11 +18,11 @@
     </div>
 
     {% for area_data in areas_data %}
-        <div style="position: sticky; top: 60px; background-color: white; z-index: 2;">
-            <h3 style="margin-bottom: 0;">{{ area_data.area.name }}</h3>
+        <div style="position: sticky; top: 63px; background-color: white; z-index: 2;">
+            <h3 style="margin-bottom: 0; font-weight: bold;">{{ area_data.area.name }}</h3>
         </div>
         {% for country_data in area_data.countries %}
-            <div style="position: sticky; top: 90px; background-color: white; z-index: 1;">
+            <div style="position: sticky; top: 93px; background-color: white; z-index: 1;">
                 <h4 style="margin-bottom: 0;">{{ country_data.country.name }}</h4>
             </div>
             <div class="d-flex flex-row" style="overflow-x: auto;">
