@@ -6,6 +6,10 @@ from .forms import SpotForm, CountryForm
 from collections import defaultdict
 from .models import Spot, Tags, Month
 from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from .forms import CustomUserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -42,6 +46,7 @@ def country_create(request):
         form = CountryForm()
     return render(request, 'myapp/country_create.html', {'form': form, 'active_page': 'country_create'})
 
+@login_required
 def spot_list(request):
     selected_tags = request.GET.getlist('tag')
     selected_months = request.GET.getlist('month')
@@ -197,3 +202,16 @@ def is_favorite(request):
         'active_page': 'is_favorite',  # active_pageを設定
     }
     return render(request, 'myapp/is_favorite.html', context)
+
+
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/myapp/spot/list/')  # 絶対パスを使用
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'myapp/register.html', {'form': form})

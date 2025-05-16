@@ -1,5 +1,7 @@
 from django import forms
 from .models import Spot, Country
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth import get_user_model
 
 class SpotForm(forms.ModelForm):
     class Meta:
@@ -18,3 +20,14 @@ class CountryForm(forms.ModelForm):
             'area': 'エリア',
             'name': '国名'
         }
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = get_user_model()  # Userモデルを指定
+        fields = ('username', 'email', 'first_name', 'last_name')  # 表示するフィールド
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'email', 'first_name', 'last_name')
+
