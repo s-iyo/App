@@ -8,12 +8,12 @@
     <div style="overflow-x: auto; white-space: nowrap; position: sticky; top: 0; background-color: white; z-index: 3; padding: 20px; text-align: right;">
         <!-- タグを表示 -->
         {% for tag in tags %}
-            <span class="badge bg-info badge-with-margin">{{ tag.name }}</span>
+            <button type="button" class="badge bg-info badge-with-margin tag-button" data-tag-id="{{ tag.id }}" onclick="toggleTag(this)">{{ tag.name }}</button>
         {% endfor %}
-    
+
         <!-- 月を表示 -->
         {% for month in months %}
-            <span class="badge bg-warning badge-with-margin">{{ month.name }}</span>
+            <button type="button" class="badge bg-warning badge-with-margin month-button" data-month-id="{{ month.id }}" onclick="toggleMonth(this)">{{ month.name }}</button>
         {% endfor %}
     </div>
 
@@ -27,26 +27,26 @@
             </div>
             <div class="d-flex flex-row" style="overflow-x: auto;">
                 {% for spot in country_data.spots %}
-                <a href="{% url 'myapp:spot_detail' pk=spot.pk %}" class="card m-2 spot-link" data-spot-url="{% url 'myapp:spot_detail' pk=spot.pk %}" style="width: 15rem; flex-shrink: 0; text-decoration: none; color: inherit;">
+                <a href="{% url 'myapp:spot_detail' pk=spot.pk %}" class="card m-2 spot-link" data-spot-url="{% url 'myapp:spot_detail' pk=spot.pk %}" style="width: 15rem; flex-shrink: 0; text-decoration: none; color: inherit;" data-spot-tags="{{ spot.get_tag_ids|join:',' }}" data-spot-months="{{ spot.get_month_ids|join:',' }}">
                     {% if spot.photo %}
-                            <img src="{{ spot.photo.url }}" class="card-img-top rounded" alt="{{ spot.name }}">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ spot.name|truncatechars:9 }}</h5>
-                            <p class="card-text">
-                                {{ spot.information|truncatechars:24 }}
-                            </p>
-                            <div>
-                                {% if spot.tag.all %}
-                                    <p>
-                                    {% for tag in spot.tag.all %}
-                                        <span class="badge bg-info">{{ tag.name }}</span>
-                                    {% endfor %}
-                                    </p>
-                                {% endif %}
-                            </div>
+                        <img src="{{ spot.photo.url }}" class="card-img-top rounded" alt="{{ spot.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ spot.name|truncatechars:9 }}</h5>
+                        <p class="card-text">
+                            {{ spot.information|truncatechars:24 }}
+                        </p>
+                        <div>
+                            {% if spot.tag.all %}
+                                <p>
+                                {% for tag in spot.tag.all %}
+                                    <span class="badge bg-info">{{ tag.name }}</span>
+                                {% endfor %}
+                                </p>
+                            {% endif %}
                         </div>
-                    </a>
+                    </div>
+                </a>
                 {% endfor %}
             </div>
         {% endfor %}
@@ -55,4 +55,59 @@
 
 <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
 <script src="{% static 'myapp/js/script.js' %}"></script>
+<script>
+    let selectedTags = [];
+    let selectedMonths = [];
+
+    function toggleTag(button) {
+        const tagId = button.dataset.tagId;
+        const index = selectedTags.indexOf(tagId);
+
+        if (index === -1) {
+            selectedTags.push(tagId);
+            button.classList.add('selected');
+        } else {
+            selectedTags.splice(index, 1);
+            button.classList.remove('selected');
+        }
+
+        filterSpots();
+    }
+
+    function toggleMonth(button) {
+        const monthId = button.dataset.monthId;
+        const index = selectedMonths.indexOf(monthId);
+
+        if (index === -1) {
+            selectedMonths.push(monthId);
+            button.classList.add('selected');
+        } else {
+            selectedMonths.splice(index, 1);
+            button.classList.remove('selected');
+        }
+
+        filterSpots();
+    }
+
+    function filterSpots() {
+        const spotCards = document.querySelectorAll('.spot-link');
+
+        spotCards.forEach(card => {
+            const spotTags = card.dataset.spotTags.split(',').filter(Boolean);
+            const spotMonths = card.dataset.spotMonths.split(',').filter(Boolean);
+
+            // Check if all selected tags are present in the spot's tags
+            const tagMatch = selectedTags.every(tagId => spotTags.includes(tagId));
+
+            // If no tags are selected, show all spots. Otherwise, only show spots that match all selected tags.
+            const shouldDisplay = selectedTags.length === 0 || tagMatch;
+
+            if (shouldDisplay) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
 {% endblock %}

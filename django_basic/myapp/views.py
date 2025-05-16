@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .forms import SpotForm, CountryForm
-from .models import Spot
+
 from collections import defaultdict
+from .models import Spot, Tags, Month
+
 
 def spot_create(request):
     if request.method == 'POST':
@@ -38,8 +40,17 @@ def country_create(request):
     return render(request, 'myapp/country_create.html', {'form': form, 'active_page': 'country_create'})
 
 def spot_list(request):
+    selected_tags = request.GET.getlist('tag')
+    selected_months = request.GET.getlist('month')
+
     spots_by_area = defaultdict(lambda: defaultdict(list))
     spots = Spot.objects.all().select_related('country__area')
+
+    if selected_tags:
+        spots = spots.filter(tag__id__in=selected_tags)
+    
+    if selected_months:
+        spots = spots.filter(best_season__id__in=selected_months)
 
     for spot in spots:
         area = spot.country.area
@@ -62,12 +73,18 @@ def spot_list(request):
 
     areas_data.sort(key=lambda x: x['area'].name)
 
+    tags = Tags.objects.all()
+    months = Month.objects.all()
+
     context = {
         'areas_data': areas_data,
-        'active_page': 'spot_list',  # または 'home' など適切な名前
+        'active_page': 'spot_list',
+        'tags': tags,
+        'months': months,
+        'selected_tags': selected_tags,
+        'selected_months': selected_months,
     }
     return render(request, 'myapp/spot_list.html', context)
-
 def spot_update(request, pk):
     spot = get_object_or_404(Spot, pk=pk)
     if request.method == 'POST':

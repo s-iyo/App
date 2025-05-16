@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Area(models.Model):
     name = models.CharField('エリア名', max_length=100, unique=True)
 
@@ -16,7 +15,7 @@ class Country(models.Model):
 
 class Month(models.Model):
     name = models.CharField('月', max_length=10, unique=True)
-    number = models.IntegerField('月番号', unique=True)  # 1月: 1, 2月: 2, ..., 12月: 12
+    number = models.IntegerField('月番号', unique=True)
 
     def __str__(self):
         return self.name
@@ -38,7 +37,13 @@ class Spot(models.Model):
     def __str__(self):
         return self.name
 
+    def get_tag_ids(self):
+        return list(self.tag.values_list('id', flat=True))
+
+    def get_month_ids(self):
+        return list(self.best_season.values_list('id', flat=True))
+
     class Meta:
         verbose_name = '観光スポット'
         verbose_name_plural = '観光スポット'
-        unique_together = ('country', 'name')  # 同じ国で同じ名前のスポットは登録できないようにする
+        unique_together = ('country', 'name')
