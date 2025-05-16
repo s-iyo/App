@@ -182,5 +182,19 @@
     "fields": {
       "name": "ランドマーク"
     }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 7,
+    "fields": {
+      "name": "グルメ"
+    }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 8,
+    "fields": {
+      "name": "絶景"
+    }
   }
 ]

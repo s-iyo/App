@@ -60,7 +60,15 @@
 </script>
 <style>
     ::-webkit-scrollbar {
-  display: none;
-}
+        display: none;
+    }
+
+    .badge-with-margin {
+        opacity: 0.5;
+    }
+
+    .badge-with-margin.selected {
+        opacity: 1; /* 未選択状態では半透明 */
+    }
 </style>
 {% endblock %}

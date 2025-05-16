@@ -72,6 +72,19 @@
         border-radius: 0px 30px 0px 0px;
     }
 
+    /*お気に入り*/
+    .sidebar5{
+        width: 140px;
+        background-color: #ff8080;
+        padding: 20px;
+        height: 100vh;
+        position: fixed;
+        top: 100;
+        left: 0;
+        overflow-y: auto;
+        border-radius: 0px 30px 0px 0px;
+    }
+
     .content {
         padding: 20px;
         width: 100%; /* コンテンツ領域の幅 */
@@ -136,6 +149,11 @@
                             <li class="nav-item">
                                 <a class="nav-link {% if active_page == 'calculate_overlapping_months' %}font-weight-bold{% endif %}" href="{% url 'myapp:calculate_overlapping_months' %}">観光地を選択</a>
                             </li>
+                            <div class="sidebar6">
+                                <li class="nav-item">
+                                    <a class="nav-link {% if active_page == 'calculate_overlapping_months' %}font-weight-bold{% endif %}" href="{% url 'myapp:calculate_overlapping_months' %}">お気に入り</a>
+                                </li>
+                            </div>
                         </div>
                     </div>
                 </div>
