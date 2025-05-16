@@ -196,5 +196,47 @@
     "fields": {
       "name": "絶景"
     }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 9,
+    "fields": {
+      "name": "一人旅"
+    }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 10,
+    "fields": {
+      "name": "家族旅行"
+    }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 11,
+    "fields": {
+      "name": "カップル旅行"
+    }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 12,
+    "fields": {
+      "name": "グループ旅行"
+    }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 13,
+    "fields": {
+      "name": "女子旅"
+    }
+  },
+  {
+    "model": "myapp.tags",
+    "pk": 14,
+    "fields": {
+      "name": "シニア旅"
+    }
   }
 ]
