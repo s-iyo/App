@@ -9,15 +9,31 @@
     <h1>ベストシーズン</h1>
     {% if selected_spots %}
         <h4><strong>選択した観光地</strong></h4>
+
         <div class="d-flex flex-wrap">
             {% for spot in selected_spots %}
-                <div style="margin-right: 10px; margin-bottom: 20px; width: 200px; text-align: center;">
+            <div class="card m-2 spot-card" style="width: 15rem; flex-shrink: 0; position: relative;" data-spot-tags="{{ spot.get_tag_ids|join:',' }}" data-spot-months="{{ spot.get_month_ids|join:',' }}">
+                <a href="{% url 'myapp:spot_detail' pk=spot.pk %}" class="spot-link" data-spot-url="{% url 'myapp:spot_detail' pk=spot.pk %}" style="text-decoration: none; color: inherit;">
                     {% if spot.photo %}
-                        <img src="{{ spot.photo.url }}" alt="{{ spot.name }}" width="180" style="margin-bottom: 5px; display: block; margin-left: auto; margin-right: auto;">
+                        <img src="{{ spot.photo.url }}" class="card-img-top rounded" alt="{{ spot.name }}">
                     {% endif %}
-                    <div style="font-weight: bold; margin-bottom: 5px;">{{ spot.name }}</div>
-                    <div style="color: #555; font-size: 0.9em; text-align: left;">{{ spot.information }}</div>
-                </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ spot.name|truncatechars:9 }}</h5>
+                        <p class="card-text">
+                            {{ spot.information|truncatechars:22 }}
+                        </p>
+                        <div>
+                            {% if spot.tag.all %}
+                                <p>
+                                {% for tag in spot.tag.all %}
+                                    <span class="badge bg-info">{{ tag.name }}</span>
+                                {% endfor %}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
             {% endfor %}
         </div>
     {% endif %}

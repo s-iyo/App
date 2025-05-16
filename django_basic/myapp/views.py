@@ -88,6 +88,7 @@ def spot_list(request):
         'selected_months': selected_months,
     }
     return render(request, 'myapp/spot_list.html', context)
+
 def spot_update(request, pk):
     spot = get_object_or_404(Spot, pk=pk)
     if request.method == 'POST':

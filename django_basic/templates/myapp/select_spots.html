@@ -14,15 +14,13 @@
         <h2 id="area_label_{{ area_data.area.pk }}"
             style="color: gray; position: sticky; top: 45px; background-color: white; z-index: 2;">
             {{ area_data.area.name }}</h2>
-        <ul>
             {% for country_data in area_data.countries %}
-            <li>
                 <h4 id="country_label_{{ country_data.country.pk }}"
                     style="color: gray; position: sticky; top: 80px; background-color: white; z-index: 1;">
                     {{ country_data.country.name }}</h4>
                 <div class="d-flex flex-nowrap" style="overflow-x: auto;">
                     {% for spot in country_data.spots %}
-                    <div class="card m-2" style="width: 15rem; min-width: 15rem;">
+                    <div class="card m-2" style="width: 15rem; min-width: 15rem; position: relative;"> <!-- position: relative; を追加 -->
                         <label for="spot_{{ spot.pk }}"
                             style="cursor: pointer; display: block; text-decoration: none; color: inherit;">
                             <input type="checkbox" id="spot_{{ spot.pk }}" name="selected_spots"
@@ -36,7 +34,7 @@
                             <div class="card-body">
                                 <h5 class="card-title" id="label_{{ spot.pk }}" style="color: gray;">
                                     {{ spot.name|truncatechars:9 }}</h5>
-                                <p class="card-text">{{ spot.information|truncatechars:20 }}</p>
+                                <p class="card-text">{{ spot.information|truncatechars:22 }}</p>
                                 {% if spot.tag.all %}
                                 <p>
                                 {% for tag in spot.tag.all %}
@@ -46,12 +44,17 @@
                             {% endif %}
                             </div>
                         </label>
+                        <button class="favorite-button" data-spot-id="{{ spot.pk }}" style="position: absolute; top: 5px; right: 5px; background: none; border: none; padding: 0; cursor: pointer;">
+                            {% if spot.is_favorite %}
+                                <i class="fas fa-star fa-lg" style="color: gold;"></i>
+                            {% else %}
+                                <i class="far fa-star fa-lg" style="color: gray;"></i>
+                            {% endif %}
+                        </button>
                     </div>
                     {% endfor %}
                 </div>
-            </li>
             {% endfor %}
-        </ul>
         {% endfor %}
         <button type="submit" class="btn btn-primary"
             style="position: sticky; bottom: 0; z-index: 4; width: auto; margin-left: -220px; left: 220px; border: none; padding: 10px;">
@@ -60,6 +63,14 @@
     </form>
 </div>
 
+<style>
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    .favorite-button:focus {
+        outline: none;
+    }
+</style>
 <script>
     function updateLabelColor(checkbox) {
         var spotId = checkbox.value;
