@@ -6,7 +6,7 @@
 <div style="margin-left: 220px;">
     <h1>ベストシーズン</h1>
     {% if selected_spots %}
-        <h4>選択した観光地</h4>
+        <h4><strong>選択した観光地</strong></h4>
         <div class="d-flex flex-wrap">
             {% for spot in selected_spots %}
                 <div style="margin-right: 10px; margin-bottom: 20px; width: 200px; text-align: center;">
@@ -21,16 +21,18 @@
     {% endif %}
 
     {% if overlapping_months %}
-        <h4>重複するベストシーズン</h4>
-        <ul>
+    <p>
+        <h4><strong>重複するベストシーズン</strong></h4>
             {% for month in overlapping_months %}
-                <li>{{ month.name }}</li>
+                <span class="badge bg-warning custom-badge">{{ month.name }}</span>
             {% endfor %}
-        </ul>
+        </p>
     {% else %}
         <p>重複するベストシーズンは見つかりませんでした。</p>
     {% endif %}
 
+    <br>
     <a href="{% url 'myapp:spot_list' %}" class="btn btn-primary">リストに戻る</a>
+    <a href="{% url 'myapp:calculate_overlapping_months' %}" class="btn btn-dark">再度選択</a>
 </div>
     {% endblock %}

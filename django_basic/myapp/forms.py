@@ -14,3 +14,7 @@ class CountryForm(forms.ModelForm):
     class Meta:
         model = Country
         fields = ['area', 'name']
+        labels = {
+            'area': 'エリア',
+            'name': '国名'
+        }

@@ -1,15 +1,22 @@
 {% extends 'myapp/base.html' %}
 
-    {% block title %}Create Country{% endblock %}
+{% block title %}Create Country{% endblock %}
 
-    {% block content %}
-    <div style="margin-left: 220px;">
-        <h1>国を追加</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">作成</button>
-            <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
-        </form>
-    </div>
-    {% endblock %}
+{% block content %}
+<div style="margin-left: 220px;">
+    <h1>国を追加</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="{{ form.name.id_for_label }}"><h5><strong>エリア : </strong></h5></label>
+            {{ form.area }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.area.id_for_label }}"><h5><strong>国名 : </strong></h5></label>
+            {{ form.name }}
+        </div>
+        <button type="submit" class="btn btn-primary">作成</button>
+        <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

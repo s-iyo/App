@@ -1,82 +1,110 @@
 {% extends 'myapp/base.html' %}
+{% load static %}
 
 {% block title %}Select Spots{% endblock %}
 
 {% block content %}
 <div style="margin-left: 220px;">
-    <h1>行きたい観光地を選択してください</h1>
-    <form method="post" action="{% url 'myapp:calculate_overlapping_months' %}">
+    <h1 style="position: sticky; top: 0; background-color: white; z-index: 3;">行きたい観光地を選択してください</h1>
+    <form method="post" action="{% url 'myapp:calculate_overlapping_months' %}" style="position: relative;">
         {% csrf_token %}
         {% for area_data in areas_data %}
-            <h2 id="area_label_{{ area_data.area.pk }}" style="color: gray;">{{ area_data.area.name }}</h2>
-            <ul>
-                {% for country_data in area_data.countries %}
-                    <li>
-                        <h4 id="country_label_{{ country_data.country.pk }}" style="color: gray;">{{ country_data.country.name }}</h4>
-                        <div class="d-flex flex-nowrap" style="overflow-x: auto;">
-                            {% for spot in country_data.spots %}
-                                <div style="margin-right: 10px; margin-bottom: 20px; width: 250px;">
-                                    <label for="spot_{{ spot.pk }}" style="cursor: pointer; display: block;">
-                                        <input type="checkbox" id="spot_{{ spot.pk }}" name="selected_spots" value="{{ spot.pk }}"
-                                            data-area="{{ area_data.area.pk }}" data-country="{{ country_data.country.pk }}"
-                                            onchange="updateLabelColor(this); updateImageOpacity(this)" style="display: none;">
-                                        {% if spot.photo %}
-                                            <img src="{{ spot.photo.url }}" alt="{{ spot.name }}" width="200" id="image_{{ spot.pk }}"
-                                                style="opacity: 0.5; transition: opacity 0.3s; display: block; margin-bottom: 5px;">
-                                        {% endif %}
-                                        <span id="label_{{ spot.pk }}" style="display: block; margin-left: 5px; color: gray; font-weight: bold;">{{ spot.name }}</span>
-                                        <p style="margin-top: 5px; color: #555; width: 200px;">{{ spot.information }}</p>
-                                    </label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+        <h2 id="area_label_{{ area_data.area.pk }}"
+            style="color: gray; position: sticky; top: 45px; background-color: white; z-index: 2;">
+            {{ area_data.area.name }}</h2>
+        <ul>
+            {% for country_data in area_data.countries %}
+            <li>
+                <h4 id="country_label_{{ country_data.country.pk }}"
+                    style="color: gray; position: sticky; top: 80px; background-color: white; z-index: 1;">
+                    {{ country_data.country.name }}</h4>
+                <div class="d-flex flex-nowrap" style="overflow-x: auto;">
+                    {% for spot in country_data.spots %}
+                    <div class="card m-2" style="width: 15rem; min-width: 15rem;">
+                        <label for="spot_{{ spot.pk }}"
+                            style="cursor: pointer; display: block; text-decoration: none; color: inherit;">
+                            <input type="checkbox" id="spot_{{ spot.pk }}" name="selected_spots"
+                                value="{{ spot.pk }}" data-area="{{ area_data.area.pk }}"
+                                data-country="{{ country_data.country.pk }}"
+                                onchange="updateLabelColor(this); updateImageOpacity(this)" style="display: none;">
+                            {% if spot.photo %}
+                            <img src="{{ spot.photo.url }}" class="card-img-top" alt="{{ spot.name }}"
+                                id="image_{{ spot.pk }}" style="opacity: 0.5; transition: opacity 0.3s;">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title" id="label_{{ spot.pk }}" style="color: gray;">
+                                    {{ spot.name|truncatechars:9 }}</h5>
+                                <p class="card-text">{{ spot.information|truncatechars:20 }}</p>
+                                {% if spot.tag.all %}
+                                <p>
+                                {% for tag in spot.tag.all %}
+                                    <span class="badge bg-light">{{ tag.name }}</span>
+                                {% endfor %}
+                                </p>
+                            {% endif %}
+                            </div>
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
         {% endfor %}
-        <button type="submit" class="btn btn-primary">ベストシーズンを表示</button>
+        <button type="submit" class="btn btn-primary"
+            style="position: sticky; bottom: 0; z-index: 4; width: auto; margin-left: -220px; left: 220px; border: none; padding: 10px;">
+            ベストシーズンを表示
+        </button>
     </form>
 </div>
 
-    <script>
-        function updateLabelColor(checkbox) {
-            var spotId = checkbox.value;
-            var areaId = checkbox.dataset.area;
-            var countryId = checkbox.dataset.country;
+<script>
+    function updateLabelColor(checkbox) {
+        var spotId = checkbox.value;
+        var areaId = checkbox.dataset.area;
+        var countryId = checkbox.dataset.country;
 
-            var label = document.getElementById('label_' + spotId);
-            var areaLabel = document.getElementById('area_label_' + areaId);
-            var countryLabel = document.getElementById('country_label_' + countryId);
+        var label = document.getElementById('label_' + spotId);
+        var areaLabel = document.getElementById('area_label_' + areaId);
+        var countryLabel = document.getElementById('country_label_' + countryId);
 
-            if (checkbox.checked) {
-                label.style.color = 'black';
+        if (checkbox.checked) {
+            label.style.color = 'black';
+            if (areaLabel) {
                 areaLabel.style.color = 'black';
+            }
+            if (countryLabel) {
                 countryLabel.style.color = 'black';
-            } else {
-                label.style.color = 'gray';
+            }
+        } else {
+            label.style.color = 'gray';
+            if (areaLabel) {
                 areaLabel.style.color = 'gray';
+            }
+            if (countryLabel) {
                 countryLabel.style.color = 'gray';
             }
         }
+    }
 
-        function updateImageOpacity(checkbox) {
-            var spotId = checkbox.value;
-            var image = document.getElementById('image_' + spotId);
+    function updateImageOpacity(checkbox) {
+        var spotId = checkbox.value;
+        var image = document.getElementById('image_' + spotId);
 
-            if (checkbox.checked) {
-                image.style.opacity = 1;
-            } else {
-                image.style.opacity = 0.5;
-            }
+        if (checkbox.checked) {
+            image.style.opacity = 1;
+        } else {
+            image.style.opacity = 0.5;
         }
+    }
 
-        // ページ読み込み時に初期色と透明度を設定
-        document.addEventListener('DOMContentLoaded', function() {
-            var checkboxes = document.querySelectorAll('input[name="selected_spots"]');
-            checkboxes.forEach(function(checkbox) {
-                updateLabelColor(checkbox);
-                updateImageOpacity(checkbox);
-            });
+    // ページ読み込み時に初期色と透明度を設定
+    document.addEventListener('DOMContentLoaded', function () {
+        var checkboxes = document.querySelectorAll('input[name="selected_spots"]');
+        checkboxes.forEach(function (checkbox) {
+            updateLabelColor(checkbox);
+            updateImageOpacity(checkbox);
         });
-    </script>
+    });
+</script>
 {% endblock %}
