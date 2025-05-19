@@ -1,40 +1,30 @@
-#views.py
-
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .forms import SpotForm, CountryForm
 from collections import defaultdict
-from .models import Spot, Tags, Month
-from django.http import JsonResponse
-from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm
+from .models import Spot, Tags, Month, FavoriteSpot  # FavoriteSpot をインポート
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login as auth_login
-from django.contrib.auth import logout as auth_logout
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserProfileUpdateForm  # ユーザープロファイル更新フォーム
-
+from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
+from .forms import UserProfileUpdateForm
 from django.urls import reverse
+from .forms import CustomUserCreationForm
 
 def spot_create(request):
     if request.method == 'POST':
         form = SpotForm(request.POST, request.FILES)
         if form.is_valid():
-            spot = form.save()  # フォームを保存
+            spot = form.save()
             return redirect('myapp:spot_list')
         else:
-            print(form.errors)  # フォームのエラーをコンソールに出力
+            print(form.errors)
     else:
         form = SpotForm()
     return render(request, 'myapp/spot_create.html', {'form': form, 'active_page': 'spot_create'})
 
 def spot_detail(request, pk):
     spot = get_object_or_404(Spot, pk=pk)
-    return render(request, 'myapp/spot_detail.html', {'spot': spot, 'active_page': 'spot_detail'}) # 必要に応じて
+    return render(request, 'myapp/spot_detail.html', {'spot': spot, 'active_page': 'spot_detail'})
 
 def spot_photo(request, pk):
     spot = get_object_or_404(Spot, pk=pk)
@@ -66,9 +56,17 @@ def spot_list(request):
     if selected_months:
         spots = spots.filter(best_season__id__in=selected_months)
 
+    # ログインしている場合、お気に入り情報を取得
+    if request.user.is_authenticated:
+        favorite_spots = FavoriteSpot.objects.filter(user=request.user).values_list('spot_id', flat=True)
+    else:
+        favorite_spots = []
+
     for spot in spots:
         area = spot.country.area
         country = spot.country
+        # スポットがお気に入りかどうかを判定
+        spot.is_favorite = spot.pk in favorite_spots
         spots_by_area[area][country].append(spot)
 
     areas_data = []
@@ -170,19 +168,27 @@ def spot_delete(request, pk):
         return redirect('myapp:spot_list')
     return render(request, 'myapp/spot_delete.html', {'spot': spot, 'active_page': 'spot_delete'})
 
-
+@login_required  # ログイン必須にする
 def toggle_favorite(request, pk):
     spot = get_object_or_404(Spot, pk=pk)
-    spot.is_favorite = not spot.is_favorite
-    spot.save()
-    return JsonResponse({'is_favorite': spot.is_favorite})
+    try:
+        favorite = FavoriteSpot.objects.get(user=request.user, spot=spot)
+        favorite.delete()  # お気に入り解除
+        is_favorite = False
+    except FavoriteSpot.DoesNotExist:
+        FavoriteSpot.objects.create(user=request.user, spot=spot)  # お気に入り登録
+        is_favorite = True
+    return JsonResponse({'is_favorite': is_favorite})
 
+@login_required  # ログイン必須にする
 def is_favorite(request):
     spots_by_area = defaultdict(lambda: defaultdict(list))
-    # is_favoriteがTrueのスポットのみを取得
-    spots = Spot.objects.filter(is_favorite=True).select_related('country__area')
+    # ログインユーザーのお気に入りスポットのみを取得
+    favorite_spots = FavoriteSpot.objects.filter(user=request.user).select_related('spot', 'spot__country__area')
 
-    for spot in spots:
+    for favorite in favorite_spots:
+        spot = favorite.spot
+        spot.is_favorite = True  # お気に入り状態をTrueに設定
         area = spot.country.area
         country = spot.country
         spots_by_area[area][country].append(spot)
@@ -205,7 +211,7 @@ def is_favorite(request):
 
     context = {
         'areas_data': areas_data,
-        'active_page': 'is_favorite',  # active_pageを設定
+        'active_page': 'is_favorite',
     }
     return render(request, 'myapp/is_favorite.html', context)
 
@@ -213,14 +219,14 @@ def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)  # ユーザーオブジェクトをまだ保存しない
-            user.first_name = form.cleaned_data['first_name']  # フォームから名を取得
-            user.last_name = form.cleaned_data['last_name']  # フォームから姓を取得
-            user.email = form.cleaned_data['email']  # フォームからメールアドレスを取得
-            user.save()  # ユーザーオブジェクトを保存
+            user = form.save(commit=False)
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.email = form.cleaned_data['email']
+            user.save()
 
-            auth_login(request, user)  # 登録後、自動的にログイン
-            return redirect(reverse('myapp:spot_list'))  # ログイン後、ホームページへリダイレクト
+            auth_login(request, user)
+            return redirect(reverse('myapp:spot_list'))
     else:
         form = CustomUserCreationForm()
     return render(request, 'myapp/signup.html', {'form': form})
@@ -234,24 +240,20 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                # ログイン成功時はマイページにリダイレクト (URLは後で修正)
-                return redirect('myapp:spot_list')  # 'myapp:mypage' に変更
+                return redirect('myapp:spot_list')
             else:
-                # 認証失敗時の処理
                 return render(request, 'myapp/login.html', {'form': form, 'error': 'ユーザー名またはパスワードが間違っています。'})
         else:
-            # フォームが無効な場合の処理
             return render(request, 'myapp/login.html', {'form': form, 'error': '入力内容に誤りがあります。'})
     else:
         form = AuthenticationForm()
     return render(request, 'myapp/login.html', {'form': form})
 
-
 def logout(request):
     auth_logout(request)
-    return redirect(reverse('myapp:login'))  # ログアウト後にログインページにリダイレクト
+    return redirect(reverse('myapp:login'))
 
-
+@login_required
 def mypage(request):
     user = request.user
     context = {
@@ -262,12 +264,13 @@ def mypage(request):
     }
     return render(request, 'myapp/mypage.html', context)
 
+@login_required
 def update_profile(request):
     if request.method == 'POST':
         form = UserProfileUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('myapp:mypage')  # 更新後、マイページへリダイレクト
+            return redirect('myapp:mypage')
     else:
         form = UserProfileUpdateForm(instance=request.user)
     return render(request, 'myapp/update_profile.html', {'form': form})

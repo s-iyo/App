@@ -29,7 +29,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email')  # username を追加
 
 class UserProfileUpdateForm(forms.ModelForm):
     class Meta:
