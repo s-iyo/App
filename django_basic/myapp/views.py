@@ -8,10 +8,17 @@ from .models import Spot, Tags, Month
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
-from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import UserProfileUpdateForm  # ユーザープロファイル更新フォーム
 
-
+from django.urls import reverse
 
 def spot_create(request):
     if request.method == 'POST':
@@ -46,7 +53,6 @@ def country_create(request):
         form = CountryForm()
     return render(request, 'myapp/country_create.html', {'form': form, 'active_page': 'country_create'})
 
-@login_required
 def spot_list(request):
     selected_tags = request.GET.getlist('tag')
     selected_months = request.GET.getlist('month')
@@ -203,15 +209,65 @@ def is_favorite(request):
     }
     return render(request, 'myapp/is_favorite.html', context)
 
-
-
-def register(request):
+def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('/myapp/spot/list/')  # 絶対パスを使用
+            user = form.save(commit=False)  # ユーザーオブジェクトをまだ保存しない
+            user.first_name = form.cleaned_data['first_name']  # フォームから名を取得
+            user.last_name = form.cleaned_data['last_name']  # フォームから姓を取得
+            user.email = form.cleaned_data['email']  # フォームからメールアドレスを取得
+            user.save()  # ユーザーオブジェクトを保存
+
+            auth_login(request, user)  # 登録後、自動的にログイン
+            return redirect(reverse('myapp:spot_list'))  # ログイン後、ホームページへリダイレクト
     else:
         form = CustomUserCreationForm()
-    return render(request, 'myapp/register.html', {'form': form})
+    return render(request, 'myapp/signup.html', {'form': form})
+
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                # ログイン成功時はマイページにリダイレクト (URLは後で修正)
+                return redirect('myapp:spot_list')  # 'myapp:mypage' に変更
+            else:
+                # 認証失敗時の処理
+                return render(request, 'myapp/login.html', {'form': form, 'error': 'ユーザー名またはパスワードが間違っています。'})
+        else:
+            # フォームが無効な場合の処理
+            return render(request, 'myapp/login.html', {'form': form, 'error': '入力内容に誤りがあります。'})
+    else:
+        form = AuthenticationForm()
+    return render(request, 'myapp/login.html', {'form': form})
+
+
+def logout(request):
+    auth_logout(request)
+    return redirect(reverse('myapp:login'))  # ログアウト後にログインページにリダイレクト
+
+
+def mypage(request):
+    user = request.user
+    context = {
+        'username': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+    }
+    return render(request, 'myapp/mypage.html', context)
+
+def update_profile(request):
+    if request.method == 'POST':
+        form = UserProfileUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('myapp:mypage')  # 更新後、マイページへリダイレクト
+    else:
+        form = UserProfileUpdateForm(instance=request.user)
+    return render(request, 'myapp/update_profile.html', {'form': form})

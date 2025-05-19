@@ -1,0 +1,15 @@
+<!-- signup.html -->
+
+{% extends "myapp/base.html" %}  {# 共通のテンプレートを継承 #}
+
+{% block content %}
+<div style="margin-left: 220px;">
+
+  <h2 style="overflow-x: auto; white-space: nowrap; position: sticky; top: 55px; background-color: white; z-index: 3; padding: 20px;">サインアップ</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">新規登録</button>
+  </form>
+</div>
+{% endblock %}

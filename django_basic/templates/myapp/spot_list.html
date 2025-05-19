@@ -5,7 +5,7 @@
 
 {% block content %}
 <div style="margin-left: 220px;">
-    <div style="overflow-x: auto; white-space: nowrap; position: sticky; top: 0; background-color: white; z-index: 3; padding: 20px; text-align: right;">
+    <div style="overflow-x: auto; white-space: nowrap; position: sticky; top: 55px; background-color: white; z-index: 3; padding: 20px; text-align: right;">
         <!-- タグを表示 -->
         {% for tag in tags %}
             <button type="button" class="badge bg-info badge-with-margin tag-button" data-tag-id="{{ tag.id }}" onclick="toggleTag(this)">{{ tag.name }}</button>
@@ -18,11 +18,11 @@
     </div>
 
     {% for area_data in areas_data %}
-        <div style="position: sticky; top: 63px; background-color: white; z-index: 2;">
+        <div style="position: sticky; top: 118px; background-color: white; z-index: 2;">
             <h3 style="margin-bottom: 0; font-weight: bold;">{{ area_data.area.name }}</h3>
         </div>
         {% for country_data in area_data.countries %}
-            <div style="position: sticky; top: 93px; background-color: white; z-index: 1;">
+            <div style="position: sticky; top: 148px; background-color: white; z-index: 1;">
                 <h4 style="margin-bottom: 0;">{{ country_data.country.name }}</h4>
             </div>
             <div class="d-flex flex-row" style="overflow-x: auto;">

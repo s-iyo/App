@@ -7,16 +7,16 @@
 
 {% block content %}
 <div style="margin-left: 220px;">
-    <h1 style="position: sticky; top: 0; background-color: white; z-index: 3;">行きたい観光地を選択してください</h1>
+    <h1 style="position: sticky; top: 55px; background-color: white; z-index: 3;">行きたい観光地を選択してください</h1>
     <form method="post" action="{% url 'myapp:calculate_overlapping_months' %}" style="position: relative;">
         {% csrf_token %}
         {% for area_data in areas_data %}
         <h2 id="area_label_{{ area_data.area.pk }}"
-            style="color: gray; position: sticky; top: 45px; background-color: white; z-index: 2;">
+            style="color: gray; position: sticky; top: 100px; background-color: white; z-index: 2;">
             {{ area_data.area.name }}</h2>
             {% for country_data in area_data.countries %}
                 <h4 id="country_label_{{ country_data.country.pk }}"
-                    style="color: gray; position: sticky; top: 80px; background-color: white; z-index: 1;">
+                    style="color: gray; position: sticky; top: 135px; background-color: white; z-index: 1;">
                     {{ country_data.country.name }}</h4>
                 <div class="d-flex flex-nowrap" style="overflow-x: auto;">
                     {% for spot in country_data.spots %}

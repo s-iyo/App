@@ -14,7 +14,12 @@ urlpatterns = [
     path('spot/select/', views.calculate_overlapping_months, name='calculate_overlapping_months'),  # ベストシーズンの表示
     path('spot/<int:pk>/toggle_favorite/', views.toggle_favorite, name='toggle_favorite'),  # お気に入り
 
-    path('register/', views.register, name='register'),
     path('', views.spot_list, name='spot_list'),                  # リストの表示(Home)
+
+    path('signup/', views.signup, name='signup'),
+    path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
+    path('mypage/', views.mypage, name='mypage'),
+    path('mypage/update/', views.update_profile, name='update_profile'),
 
 ]
