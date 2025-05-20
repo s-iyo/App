@@ -9,7 +9,8 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">新規登録✅</button>
+    <button type="submit" class="btn btn-success">新規登録✅</button>
   </form>
+  <a href="{% url 'myapp:login' %}">ログイン🔓はこちら</a>
 </div>
 {% endblock %}

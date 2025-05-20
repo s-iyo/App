@@ -106,8 +106,8 @@
 
     .content {
         padding: 20px;
-        width: 100%; /* コンテンツ領域の幅 */
-        margin-top: 60px; /* ヘッダーの高さ分だけ下げる */
+        width: 100%;
+        margin-top: 60px;
     }
 
     .navbar-brand {
@@ -130,10 +130,9 @@
         color: black;
     }
 
-    /* リストのヘッダーのタグ */
     .badge-with-margin {
         font-size: 15px;
-        padding: 0.3em 0.5em; /* バッジのpaddingを調整 */
+        padding: 0.3em 0.5em;
     }
 
     .tag-button, .month-button {
@@ -146,22 +145,22 @@
     }
 
     .header {
-        background-color: #fdf7f7; /* ヘッダーの背景色（Bootstrapのlightに似た色） */
-        padding: 10px 20px; /* 上下のpaddingを10px、左右のpaddingを20pxに設定 */
-        display: flex; /* Flexboxを使用 */
-        justify-content: flex-end; /* 右寄せ */
-        align-items: center; /* 垂直方向中央揃え */
-        position: fixed; /* ヘッダーを固定 */
-        top: 0; /* 画面上部に固定 */
-        left: 0; /* 画面左端に固定 */
-        width: 100%; /* 画面幅いっぱいに広げる */
+        background-color: #fdf7f7;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
         z-index: 1000;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 影をつける */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .auth-buttons {
         display: flex;
-        gap: 10px; /* ボタン間の間隔 */
+        gap: 10px;
     }
 
 
@@ -183,7 +182,7 @@
     </header>
 
     <div class="sidebar">
-        <a class="navbar-brand" href="#">SeasonNavi📅🗺️</a>
+        <a class="navbar-brand" href="{% url 'myapp:spot_list' %}">SeasonNavi📅🗺️</a>
         <ul class="nav flex-column">
             <div class="sidebar2">
                 <li class="nav-item">

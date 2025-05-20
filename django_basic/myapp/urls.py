@@ -3,7 +3,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 
-app_name = 'myapp'  # 名前空間を確認
+app_name = 'myapp'
 
 urlpatterns = [
     path('country/create/', views.country_create, name='country_create'),   # 国の追加
