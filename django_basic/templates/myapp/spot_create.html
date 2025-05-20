@@ -9,17 +9,53 @@
     <h1 style="overflow-x: auto; white-space: nowrap; position: sticky; top: 55px; background-color: white; z-index: 3; padding: 20px;">観光地を追加</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
         <div class="form-group">
             <label for="{{ form.country.id_for_label }}"><h5><strong>国 : </strong></h5></label>
             {{ form.country }}
+            {% if form.country.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for error in form.country.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
         <div class="form-group">
             <label for="{{ form.name.id_for_label }}"><h5><strong>名前 : </strong></h5></label>
             {{ form.name }}
+            {% if form.name.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for error in form.name.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
         <div class="form-group">
             <label for="{{ form.information.id_for_label }}"><h5><strong>詳細情報 : </strong></h5></label>
             {{ form.information }}
+            {% if form.information.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for error in form.information.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
         <div class="form-group">
             <label for="{{ form.best_season.id_for_label }}"><h5><strong>ベストシーズン : </strong></h5></label>
@@ -31,20 +67,48 @@
                         </label>
                     </div>
                 {% endfor %}
+            </div>
+            {% if form.best_season.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for error in form.best_season.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
         <div class="form-group">
             <label for="{{ form.tag.id_for_label }}"><h5><strong>タグ : </strong></h5></label>
             <div>
             {% for tags in form.tag %}
-            <label class="btn {% if tag.value %}btn-primary{% else %}btn-outline-primary{% endif %}">
-                {{ tags }} {{ tag.label }}
-            </label>
+                <label class="btn {% if tags.value %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                    {{ tags }} {{ tags.label }}
+                </label>
             {% endfor %}
             </div>
+            {% if form.tag.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for error in form.tag.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
         <div class="form-group">
             <label for="{{ form.photo.id_for_label }}"><h5><strong>イメージ : </strong></h5></label>
             {{ form.photo }}
+            {% if form.photo.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for error in form.photo.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
         <button type="submit" class="btn btn-primary">作成</button>
         <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>

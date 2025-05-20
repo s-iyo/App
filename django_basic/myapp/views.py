@@ -38,10 +38,13 @@ def country_create(request):
         form = CountryForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('myapp:spot_create')
+            return redirect('myapp:spot_list')  # 成功したらリダイレクト
+        else:
+            # フォームが無効な場合は、エラーメッセージを含むフォームをテンプレートに渡す
+            return render(request, 'myapp/country_create.html', {'form': form})
     else:
         form = CountryForm()
-    return render(request, 'myapp/country_create.html', {'form': form, 'active_page': 'country_create'})
+    return render(request, 'myapp/country_create.html', {'form': form})
 
 def spot_list(request):
     selected_tags = request.GET.getlist('tag')

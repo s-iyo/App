@@ -7,15 +7,42 @@
 {% block content %}
 <div style="margin-left: 220px;">
     <h1 style="overflow-x: auto; white-space: nowrap; position: sticky; top: 55px; background-color: white; z-index: 3; padding: 20px;">国を追加</h1>
-    <form method="post">
+    <form method="post" action="{% url 'myapp:country_create' %}">
         {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
         <div class="mb-3">
             <label for="{{ form.name.id_for_label }}"><h5><strong>エリア : </strong></h5></label>
             {{ form.area }}
+            {% if form.area.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for error in form.area.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
         <div class="mb-3">
             <label for="{{ form.area.id_for_label }}"><h5><strong>国名 : </strong></h5></label>
             {{ form.name }}
+            {% if form.name.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for error in form.name.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
         <button type="submit" class="btn btn-primary">作成</button>
         <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
