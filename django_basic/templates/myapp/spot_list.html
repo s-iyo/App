@@ -3,6 +3,7 @@
 
 {% block title %}Spot List{% endblock %}
 
+
 {% block content %}
 <div style="margin-left: 280px;">
     <div style="overflow-x: auto; white-space: nowrap; position: sticky; top: 55px; background-color: white; z-index: 3; padding: 20px; text-align: right;">
@@ -50,9 +51,9 @@
                     </a>
                     <button class="favorite-button" data-spot-id="{{ spot.pk }}" style="position: absolute; top: 5px; right: 5px; background: none; border: none; padding: 0; cursor: pointer;">
                         {% if spot.is_favorite %}
-                            <i class="fas fa-star fa-lg" style="color: gold;"></i>
+                            <i class="fas fa-heart fa-lg" style="color: rgba(255, 0, 0, 0.6);"></i>
                         {% else %}
-                            <i class="far fa-star fa-lg" style="color: gray;"></i>
+                            <i class="far fa-heart fa-lg" style="color: gray;"></i>
                         {% endif %}
                     </button>
                 </div>

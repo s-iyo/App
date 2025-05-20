@@ -38,7 +38,7 @@ def country_create(request):
         form = CountryForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('myapp:spot_list')  # 成功したらリダイレクト
+            return redirect('myapp:spot_create')  # 成功したらリダイレクト
         else:
             # フォームが無効な場合は、エラーメッセージを含むフォームをテンプレートに渡す
             return render(request, 'myapp/country_create.html', {'form': form})
