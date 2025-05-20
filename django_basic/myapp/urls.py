@@ -23,5 +23,4 @@ urlpatterns = [
     path('mypage/update/', views.update_profile, name='update_profile'),
     path('myapp/login/', auth_views.LoginView.as_view(template_name='myapp/login.html'), name='login'),
 
-
 ]
