@@ -92,10 +92,10 @@
         border-radius: 0px 30px 0px 0px;
     }
 
-        /*お気に入り*/
+    /*世界地図*/
     .sidebar7{
         width: 160px;
-        background-color: #fc5e5e;
+        background-color: #d52b2b;
         padding: 20px;
         height: 100vh;
         position: fixed;
@@ -165,6 +165,13 @@
     }
 
 
+    ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+
+
 
     </style>
 
@@ -187,7 +194,7 @@
         <ul class="nav flex-column">
             <div class="sidebar2">
                 <li class="nav-item">
-                    <a class="nav-link {% if active_page == 'spot_list' %}font-weight-bold{% endif %}" href="{% url 'myapp:spot_list' %}">リスト📝</a>
+                    <a class="nav-link {% if active_page == 'spot_list' %}font-weight-bold{% endif %}" href="{% url 'myapp:spot_list' %}">観光スポット一覧📝</a>
                 </li>
                 <div class="sidebar3">
                     <li class="nav-item">
@@ -199,12 +206,16 @@
                         </li>
                         <div class="sidebar5">
                             <li class="nav-item">
-                                <a class="nav-link {% if active_page == 'calculate_overlapping_months' %}font-weight-bold{% endif %}" href="{% url 'myapp:calculate_overlapping_months' %}">観光地を選択🗺️</a>
+                                <a class="nav-link {% if active_page == 'calculate_overlapping_months' %}font-weight-bold{% endif %}" href="{% url 'myapp:calculate_overlapping_months' %}">観光地選択🗺️✔️</a>
                             </li>
                             <div class="sidebar6">
                                 <li class="nav-item">
                                     <a class="nav-link {% if active_page == 'is_favorite' %}font-weight-bold{% endif %}" href="{% url 'myapp:is_favorite' %}">お気に入り❤️</a>
                                 </li>
+                                <div class="sidebar7">
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if active_page == 'worldmap' %}font-weight-bold{% endif %}" href="{% url 'myapp:worldmap' %}">世界地図🗺️</a>                                    </li>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -222,55 +233,55 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         let selectedTags = [];
-let selectedMonths = [];
+        let selectedMonths = [];
 
-function toggleTag(button) {
-    const tagId = button.dataset.tagId;
-    const index = selectedTags.indexOf(tagId);
+        function toggleTag(button) {
+            const tagId = button.dataset.tagId;
+            const index = selectedTags.indexOf(tagId);
 
-    if (index === -1) {
-        selectedTags.push(tagId);
-        button.classList.add('selected');
-    } else {
-        selectedTags.splice(index, 1);
-        button.classList.remove('selected');
-    }
+            if (index === -1) {
+                selectedTags.push(tagId);
+                button.classList.add('selected');
+            } else {
+                selectedTags.splice(index, 1);
+                button.classList.remove('selected');
+            }
 
-    filterSpots();
-}
-
-function toggleMonth(button) {
-    const monthId = button.dataset.monthId;
-    const index = selectedMonths.indexOf(monthId);
-
-    if (index === -1) {
-        selectedMonths.push(monthId);
-        button.classList.add('selected');
-    } else {
-        selectedMonths.splice(index, 1);
-        button.classList.remove('selected');
-    }
-
-    filterSpots();
-}
-
-function filterSpots() {
-    const spotCards = document.querySelectorAll('.spot-link');
-
-    spotCards.forEach(card => {
-        let spotTags = card.dataset.spotTags ? card.dataset.spotTags.split(',').filter(Boolean) : [];
-        let spotMonths = card.dataset.spotMonths ? card.dataset.spotMonths.split(',').filter(Boolean) : [];
-
-        const tagMatch = selectedTags.length === 0 || selectedTags.every(tagId => spotTags.includes(tagId));
-        const monthMatch = selectedMonths.length === 0 || selectedMonths.every(monthId => spotMonths.includes(monthId));
-
-        if (tagMatch && monthMatch) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
+            filterSpots();
         }
-    });
-}
+
+        function toggleMonth(button) {
+            const monthId = button.dataset.monthId;
+            const index = selectedMonths.indexOf(monthId);
+
+            if (index === -1) {
+                selectedMonths.push(monthId);
+                button.classList.add('selected');
+            } else {
+                selectedMonths.splice(index, 1);
+                button.classList.remove('selected');
+            }
+
+            filterSpots();
+        }
+
+        function filterSpots() {
+            const spotCards = document.querySelectorAll('.spot-link');
+
+            spotCards.forEach(card => {
+                let spotTags = card.dataset.spotTags ? card.dataset.spotTags.split(',').filter(Boolean) : [];
+                let spotMonths = card.dataset.spotMonths ? card.dataset.spotMonths.split(',').filter(Boolean) : [];
+
+                const tagMatch = selectedTags.length === 0 || selectedTags.every(tagId => spotTags.includes(tagId));
+                const monthMatch = selectedMonths.length === 0 || selectedMonths.every(monthId => spotMonths.includes(monthId));
+
+                if (tagMatch && monthMatch) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
 
     </script>
 </body>

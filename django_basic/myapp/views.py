@@ -277,3 +277,6 @@ def update_profile(request):
     else:
         form = UserProfileUpdateForm(instance=request.user)
     return render(request, 'myapp/update_profile.html', {'form': form})
+
+def worldmap(request):
+    return render(request, 'myapp/worldmap.html', {'active_page': 'worldmap'})

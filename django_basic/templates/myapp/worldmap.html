@@ -1,0 +1,10 @@
+<!-- worldmap.html -->
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="margin-left: 280px;">
+    <h1 style="position: sticky; top: 55px; background-color: white; z-index: 3;">世界地図</h1>
+    <img src="{% static 'myapp/images/worldmap.jpg' %}" alt="世界地図" style="max-width: 100%; height: auto;">
+</div>
+{% endblock %}

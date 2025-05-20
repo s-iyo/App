@@ -15,6 +15,8 @@ urlpatterns = [
     path('spot/favorites/', views.is_favorite, name='is_favorite'),  # お気に入りページ
     path('spot/select/', views.calculate_overlapping_months, name='calculate_overlapping_months'),  # ベストシーズンの表示
     path('spot/<int:pk>/toggle_favorite/', views.toggle_favorite, name='toggle_favorite'),  # お気に入り
+    path('worldmap/', views.worldmap, name='worldmap'),  # 世界地図ページ
+
     path('', views.spot_list, name='spot_list'),
     path('signup/', views.signup, name='signup'),
     path('login/', views.login, name='login'),
