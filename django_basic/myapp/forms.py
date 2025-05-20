@@ -53,9 +53,9 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email')  # username を追加
+        fields = ('username', 'first_name', 'last_name', 'email')
 
 class UserProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email']  # 更新したいフィールド
+        fields = ['username', 'last_name', 'first_name', 'email']

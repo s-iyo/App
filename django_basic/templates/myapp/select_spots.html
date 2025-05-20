@@ -6,7 +6,7 @@
 {% block title %}Select Spots{% endblock %}
 
 {% block content %}
-<div style="margin-left: 220px;">
+<div style="margin-left: 280px;">
     <h1 style="position: sticky; top: 55px; background-color: white; z-index: 3;">行きたい観光地を選択してください</h1>
     <form method="post" action="{% url 'myapp:calculate_overlapping_months' %}" style="position: relative;">
         {% csrf_token %}
@@ -57,8 +57,8 @@
             {% endfor %}
         {% endfor %}
         <button type="submit" class="btn btn-primary"
-            style="position: sticky; bottom: 0; z-index: 4; width: auto; margin-left: -220px; left: 220px; border: none; padding: 10px;">
-            ベストシーズンを表示
+            style="position: sticky; bottom: 10px; z-index: 4; width: auto; left: 280px; border: none; padding: 10px;">
+            ベストシーズンを表示📅
         </button>
     </form>
 </div>

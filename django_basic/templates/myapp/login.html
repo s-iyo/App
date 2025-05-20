@@ -4,7 +4,7 @@
 {% block title %}お気に入りスポット{% endblock %}
 
 {% block content %}
-<div style="margin-left: 220px;">
+<div style="margin-left: 280px;">
     <h2 style="overflow-x: auto; white-space: nowrap; position: sticky; top: 55px; background-color: white; z-index: 3; padding: 20px;">ログイン</h2>
     {% if error %}
         <p style="color: red;">{{ error }}</p>
@@ -12,9 +12,9 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">ログイン</button>
+        <button type="submit" class="btn btn-primary">ログイン🔓</button>
     </form>
-    <a href="{% url 'myapp:signup' %}">新規登録はこちら</a>
+    <a href="{% url 'myapp:signup' %}">新規登録📝はこちら</a>
 </div>
 {% endblock %}
 

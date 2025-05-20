@@ -5,15 +5,15 @@
     {% block title %}スポット削除確認{% endblock %}
 
     {% block content %}
-    <div style="margin-left: 220px;">
+    <div style="margin-left: 280px;">
         <h1>観光地の削除</h1>
 
         <h5>本当に「 {{ spot.name }} 」を削除しますか？</h5>
 
         <form method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger">削除</button>
-            <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-danger">削除🗑️</button>
+            <a href="{% url 'myapp:spot_update' pk=spot.pk %}" class="btn btn-secondary">Cancel❌</a>
         </form>
     </div>
     {% endblock %}

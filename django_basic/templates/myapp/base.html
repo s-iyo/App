@@ -14,7 +14,7 @@
     }
 
     .sidebar {
-        width: 220px;
+        width: 280px;
         background-color: #fceded;
         padding: 20px;
         height: 100vh;
@@ -28,7 +28,7 @@
 
     /*リスト*/
     .sidebar2{
-        width: 200px;
+        width: 260px;
         background-color: #f8dcdc;
         padding: 20px;
         height: 100vh;
@@ -41,7 +41,7 @@
 
     /*観光地を追加*/
     .sidebar3{
-        width: 180px;
+        width: 240px;
         background-color: #f1b8b8;
         padding: 20px;
         height: 100vh;
@@ -54,7 +54,7 @@
 
     /*国を追加*/
     .sidebar4{
-        width: 160px;
+        width: 220px;
         background-color: #ea9595;
         padding: 20px;
         height: 100vh;
@@ -67,7 +67,7 @@
 
     /*観光地を選択*/
     .sidebar5{
-        width: 140px;
+        width: 200px;
         background-color: #e27272;
         padding: 20px;
         height: 100vh;
@@ -80,7 +80,7 @@
 
     /*お気に入り*/
     .sidebar6{
-        width: 120px;
+        width: 180px;
         background-color: #dc4e4e;
         padding: 20px;
         height: 100vh;
@@ -93,7 +93,7 @@
 
         /*お気に入り*/
     .sidebar7{
-        width: 100px;
+        width: 160px;
         background-color: #fc5e5e;
         padding: 20px;
         height: 100vh;
@@ -113,7 +113,7 @@
     .navbar-brand {
         color: black;
         font-family: sans-serif;
-        font-size: 30px;
+        font-size: 27px;
         font-weight: bold;
     }
 
@@ -173,37 +173,37 @@
     <header class="header">
         <div class="auth-buttons">
             {% if user.is_authenticated %}
-                <a href="{% url 'myapp:mypage' %}" class="btn btn-outline-primary">マイページ</a>
-                <a href="{% url 'myapp:logout' %}" class="btn btn-outline-danger">ログアウト</a>
+                <a href="{% url 'myapp:mypage' %}" class="btn btn-outline-primary">マイページ👤</a>
+                <a href="{% url 'myapp:logout' %}" class="btn btn-outline-danger">ログアウト🔐</a>
             {% else %}
-                <a href="{% url 'myapp:login' %}" class="btn btn-outline-primary">ログイン</a>
-                <a href="{% url 'myapp:signup' %}" class="btn btn-outline-warning">新規登録</a>
+                <a href="{% url 'myapp:login' %}" class="btn btn-outline-primary">ログイン🔓</a>
+                <a href="{% url 'myapp:signup' %}" class="btn btn-outline-warning">新規登録📝</a>
             {% endif %}
         </div>
     </header>
 
     <div class="sidebar">
-        <a class="navbar-brand" href="#">Travel List</a>
+        <a class="navbar-brand" href="#">SeasonNavi📅🗺️</a>
         <ul class="nav flex-column">
             <div class="sidebar2">
                 <li class="nav-item">
-                    <a class="nav-link {% if active_page == 'spot_list' %}font-weight-bold{% endif %}" href="{% url 'myapp:spot_list' %}">リスト</a>
+                    <a class="nav-link {% if active_page == 'spot_list' %}font-weight-bold{% endif %}" href="{% url 'myapp:spot_list' %}">リスト📝</a>
                 </li>
                 <div class="sidebar3">
                     <li class="nav-item">
-                        <a class="nav-link {% if active_page == 'spot_create' %}font-weight-bold{% endif %}" href="{% url 'myapp:spot_create' %}">観光地を追加</a>
+                        <a class="nav-link {% if active_page == 'spot_create' %}font-weight-bold{% endif %}" href="{% url 'myapp:spot_create' %}">観光地を追加📍➕</a>
                     </li>
                     <div class="sidebar4">
                         <li class="nav-item">
-                            <a class="nav-link {% if active_page == 'country_create' %}font-weight-bold{% endif %}" href="{% url 'myapp:country_create' %}">国を追加</a>
+                            <a class="nav-link {% if active_page == 'country_create' %}font-weight-bold{% endif %}" href="{% url 'myapp:country_create' %}">国を追加🌎➕</a>
                         </li>
                         <div class="sidebar5">
                             <li class="nav-item">
-                                <a class="nav-link {% if active_page == 'calculate_overlapping_months' %}font-weight-bold{% endif %}" href="{% url 'myapp:calculate_overlapping_months' %}">観光地を選択</a>
+                                <a class="nav-link {% if active_page == 'calculate_overlapping_months' %}font-weight-bold{% endif %}" href="{% url 'myapp:calculate_overlapping_months' %}">観光地を選択🗺️</a>
                             </li>
                             <div class="sidebar6">
                                 <li class="nav-item">
-                                    <a class="nav-link {% if active_page == 'is_favorite' %}font-weight-bold{% endif %}" href="{% url 'myapp:is_favorite' %}">お気に入り</a>
+                                    <a class="nav-link {% if active_page == 'is_favorite' %}font-weight-bold{% endif %}" href="{% url 'myapp:is_favorite' %}">お気に入り❤️</a>
                                 </li>
                             </div>
                         </div>

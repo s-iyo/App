@@ -5,7 +5,7 @@
 {% block title %}Update Spot{% endblock %}
 
 {% block content %}
-<div style="margin-left: 220px;">
+<div style="margin-left: 280px;">
     <h1>情報を更新</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -47,8 +47,8 @@
             <label for="{{ form.photo.id_for_label }}">写真:</label>
             {{ form.photo }}
         </div>
-        <button type="submit" class="btn btn-primary">情報を更新</button>
-        <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
-        <a href="{% url 'myapp:spot_delete' pk=spot.pk %}" class="btn btn-danger">削除</a>    </form>
+        <button type="submit" class="btn btn-primary">更新🔄</button>
+        <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel❌</a>
+        <a href="{% url 'myapp:spot_delete' pk=spot.pk %}" class="btn btn-danger">削除🗑️</a>    </form>
 </div>
 {% endblock %}

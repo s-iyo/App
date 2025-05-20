@@ -5,7 +5,7 @@
 {% block title %}Overlapping Months{% endblock %}
 
 {% block content %}
-<div style="margin-left: 220px;">
+<div style="margin-left: 280px;">
     <h1  style="overflow-x: auto; white-space: nowrap; position: sticky; top: 55px; background-color: white; z-index: 3; padding: 20px;">ベストシーズン</h1>
     {% if selected_spots %}
         <h4><strong>選択した観光地</strong></h4>
@@ -50,7 +50,7 @@
     {% endif %}
 
     <br>
-    <a href="{% url 'myapp:spot_list' %}" class="btn btn-primary">リストに戻る</a>
-    <a href="{% url 'myapp:calculate_overlapping_months' %}" class="btn btn-dark">再度選択</a>
+    <a href="{% url 'myapp:spot_list' %}" class="btn btn-primary">リストに戻る↩️</a>
+    <a href="{% url 'myapp:calculate_overlapping_months' %}" class="btn btn-dark">再度選択🔄</a>
 </div>
     {% endblock %}

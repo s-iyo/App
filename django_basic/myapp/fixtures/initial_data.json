@@ -47,7 +47,7 @@
     "model": "myapp.month",
     "pk": 1,
     "fields": {
-      "name": "1月",
+      "name": "1月☃️",
       "number": 1
     }
   },
@@ -55,7 +55,7 @@
     "model": "myapp.month",
     "pk": 2,
     "fields": {
-      "name": "2月",
+      "name": "2月❤️",
       "number": 2
     }
   },
@@ -63,7 +63,7 @@
     "model": "myapp.month",
     "pk": 3,
     "fields": {
-      "name": "3月",
+      "name": "3月🌸",
       "number": 3
     }
   },
@@ -71,7 +71,7 @@
     "model": "myapp.month",
     "pk": 4,
     "fields": {
-      "name": "4月",
+      "name": "4月🌷",
       "number": 4
     }
   },
@@ -79,7 +79,7 @@
     "model": "myapp.month",
     "pk": 5,
     "fields": {
-      "name": "5月",
+      "name": "5月🎏",
       "number": 5
     }
   },
@@ -87,7 +87,7 @@
     "model": "myapp.month",
     "pk": 6,
     "fields": {
-      "name": "6月",
+      "name": "6月☔",
       "number": 6
     }
   },
@@ -95,7 +95,7 @@
     "model": "myapp.month",
     "pk": 7,
     "fields": {
-      "name": "7月",
+      "name": "7月🎆",
       "number": 7
     }
   },
@@ -103,7 +103,7 @@
     "model": "myapp.month",
     "pk": 8,
     "fields": {
-      "name": "8月",
+      "name": "8月🌻",
       "number": 8
     }
   },
@@ -111,7 +111,7 @@
     "model": "myapp.month",
     "pk": 9,
     "fields": {
-      "name": "9月",
+      "name": "9月🎑",
       "number": 9
     }
   },
@@ -119,7 +119,7 @@
     "model": "myapp.month",
     "pk": 10,
     "fields": {
-      "name": "10月",
+      "name": "10月🎃",
       "number": 10
     }
   },
@@ -127,7 +127,7 @@
     "model": "myapp.month",
     "pk": 11,
     "fields": {
-      "name": "11月",
+      "name": "11月🍁",
       "number": 11
     }
   },
@@ -135,7 +135,7 @@
     "model": "myapp.month",
     "pk": 12,
     "fields": {
-      "name": "12月",
+      "name": "12月🎄",
       "number": 12
     }
   },
@@ -145,98 +145,63 @@
     "model": "myapp.tags",
     "pk": 1,
     "fields": {
-      "name": "自然"
+      "name": "自然🏞️"
     }
   },
   {
     "model": "myapp.tags",
     "pk": 2,
     "fields": {
-      "name": "文化"
+      "name": "文化🎭"
     }
   },
   {
     "model": "myapp.tags",
     "pk": 3,
     "fields": {
-      "name": "歴史"
+      "name": "歴史🏛️"
     }
   },
   {
     "model": "myapp.tags",
     "pk": 4,
     "fields": {
-      "name": "エンターテインメント"
+      "name": "エンターテインメント🎪"
     }
   },
   {
     "model": "myapp.tags",
     "pk": 5,
     "fields": {
-      "name": "ショッピング"
+      "name": "ショッピング🛒"
     }
   },
   {
     "model": "myapp.tags",
     "pk": 6,
     "fields": {
-      "name": "ランドマーク"
+      "name": "ランドマーク🗼"
     }
   },
   {
     "model": "myapp.tags",
     "pk": 7,
     "fields": {
-      "name": "グルメ"
+      "name": "グルメ🍽️"
     }
   },
   {
     "model": "myapp.tags",
     "pk": 8,
     "fields": {
-      "name": "絶景"
+      "name": "絶景🌄"
     }
   },
   {
     "model": "myapp.tags",
     "pk": 9,
     "fields": {
-      "name": "一人旅"
-    }
-  },
-  {
-    "model": "myapp.tags",
-    "pk": 10,
-    "fields": {
-      "name": "家族旅行"
-    }
-  },
-  {
-    "model": "myapp.tags",
-    "pk": 11,
-    "fields": {
-      "name": "カップル旅行"
-    }
-  },
-  {
-    "model": "myapp.tags",
-    "pk": 12,
-    "fields": {
-      "name": "グループ旅行"
-    }
-  },
-  {
-    "model": "myapp.tags",
-    "pk": 13,
-    "fields": {
-      "name": "女子旅"
-    }
-  },
-  {
-    "model": "myapp.tags",
-    "pk": 14,
-    "fields": {
-      "name": "シニア旅"
+      "name": "世界遺産🏅"
     }
   }
 ]

@@ -5,7 +5,7 @@
 {% block title %}Create Country{% endblock %}
 
 {% block content %}
-<div style="margin-left: 220px;">
+<div style="margin-left: 280px;">
     <h1 style="overflow-x: auto; white-space: nowrap; position: sticky; top: 55px; background-color: white; z-index: 3; padding: 20px;">国を追加</h1>
     <form method="post" action="{% url 'myapp:country_create' %}">
         {% csrf_token %}
@@ -44,8 +44,8 @@
                 </div>
             {% endif %}
         </div>
-        <button type="submit" class="btn btn-primary">作成</button>
-        <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">作成➕</button>
+        <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">Cancel❌</a>
     </form>
 </div>
 {% endblock %}

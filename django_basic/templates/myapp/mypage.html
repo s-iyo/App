@@ -4,13 +4,13 @@
 {% block title %}My Page{% endblock %}
 
 {% block content %}
-<div style="margin-left: 220px;">
+<div style="margin-left: 280px;">
     <h1  style="overflow-x: auto; white-space: nowrap; position: sticky; top: 55px; background-color: white; z-index: 3; padding: 20px;">My Page</h1>
-    <h5>ユーザーネーム : {{ username }}</h5>
-    <h5>Email : {{ email }}</h5>
-    <h5>性 : {{ first_name }}</h5>
-    <h5>名 : {{ last_name }}</h5>
-    <a href="{% url 'myapp:update_profile' %}" class="btn btn-primary">情報を更新</a>
-    <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">リストへ戻る</a>
+    <h5>ユーザーネーム👤 : {{ username }}</h5>
+    <h5>Email📧 : {{ email }}</h5>
+    <h5>性👨‍👩‍👧‍👦 : {{ first_name }}</h5>
+    <h5>名✏️ : {{ last_name }}</h5>
+    <a href="{% url 'myapp:update_profile' %}" class="btn btn-primary">情報を更新🔄</a>
+    <a href="{% url 'myapp:spot_list' %}" class="btn btn-secondary">リストへ戻る↩️</a>
 </div>
 {% endblock %}

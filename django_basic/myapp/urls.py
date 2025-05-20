@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
+
 
 app_name = 'myapp'  # 名前空間を確認
 
@@ -13,13 +15,13 @@ urlpatterns = [
     path('spot/favorites/', views.is_favorite, name='is_favorite'),  # お気に入りページ
     path('spot/select/', views.calculate_overlapping_months, name='calculate_overlapping_months'),  # ベストシーズンの表示
     path('spot/<int:pk>/toggle_favorite/', views.toggle_favorite, name='toggle_favorite'),  # お気に入り
-
-    path('', views.spot_list, name='spot_list'),                  # リストの表示(Home)
-
+    path('', views.spot_list, name='spot_list'),
     path('signup/', views.signup, name='signup'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('mypage/', views.mypage, name='mypage'),
     path('mypage/update/', views.update_profile, name='update_profile'),
+    path('myapp/login/', auth_views.LoginView.as_view(template_name='myapp/login.html'), name='login'),
+
 
 ]

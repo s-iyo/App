@@ -4,13 +4,13 @@
 {% block title %}Update Profile{% endblock %}
 
 {% block content %}
-<div style="margin-left: 220px;">
+<div style="margin-left: 280px;">
     <h1>Update Profile</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Update</button>
-        <a href="{% url 'myapp:mypage' %}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">更新🔄</button>
+        <a href="{% url 'myapp:mypage' %}" class="btn btn-secondary">Cancel❌</a>
     </form>
 </div>
 {% endblock %}
