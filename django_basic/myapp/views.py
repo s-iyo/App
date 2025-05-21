@@ -1,14 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
-from .forms import SpotForm, CountryForm
+from .forms import SpotForm, CountryForm, CustomUserCreationForm, UserProfileUpdateForm
 from collections import defaultdict
-from .models import Spot, Tags, Month, FavoriteSpot  # FavoriteSpot をインポート
+from .models import Spot, Tags, Month, FavoriteSpot
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
-from .forms import UserProfileUpdateForm
 from django.urls import reverse
-from .forms import CustomUserCreationForm
 
 def spot_create(request):
     if request.method == 'POST':
