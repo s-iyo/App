@@ -1,7 +1,7 @@
 #models.py
 
 from django.db import models
-from django.conf import settings  # ユーザーモデルを使用するために追加
+from django.conf import settings
 
 
 class Area(models.Model):

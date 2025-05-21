@@ -8,6 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
 from django.urls import reverse
 
+# 観光地追加
 def spot_create(request):
     if request.method == 'POST':
         form = SpotForm(request.POST, request.FILES)
@@ -20,17 +21,12 @@ def spot_create(request):
         form = SpotForm()
     return render(request, 'myapp/spot_create.html', {'form': form, 'active_page': 'spot_create'})
 
+# 観光地詳細
 def spot_detail(request, pk):
     spot = get_object_or_404(Spot, pk=pk)
     return render(request, 'myapp/spot_detail.html', {'spot': spot, 'active_page': 'spot_detail'})
 
-def spot_photo(request, pk):
-    spot = get_object_or_404(Spot, pk=pk)
-    if spot.photo:
-        return HttpResponse(spot.photo, content_type="image/jpeg")
-    else:
-        return HttpResponse(status=404)
-
+# 国追加
 def country_create(request):
     if request.method == 'POST':
         form = CountryForm(request.POST)
@@ -44,6 +40,7 @@ def country_create(request):
         form = CountryForm()
     return render(request, 'myapp/country_create.html', {'form': form})
 
+# 観光地一覧表示
 def spot_list(request):
     selected_tags = request.GET.getlist('tag')
     selected_months = request.GET.getlist('month')
@@ -99,6 +96,7 @@ def spot_list(request):
     }
     return render(request, 'myapp/spot_list.html', context)
 
+# 観光地情報の更新
 def spot_update(request, pk):
     spot = get_object_or_404(Spot, pk=pk)
     if request.method == 'POST':
@@ -110,6 +108,7 @@ def spot_update(request, pk):
         form = SpotForm(instance=spot)
     return render(request, 'myapp/spot_update.html', {'form': form, 'spot': spot, 'active_page': 'spot_update'})
 
+# 選択された観光地の重複するシーズンの計算
 def calculate_overlapping_months(request):
     if request.method == 'POST':
         selected_spot_ids = request.POST.getlist('selected_spots')
@@ -162,6 +161,7 @@ def calculate_overlapping_months(request):
         }
         return render(request, 'myapp/select_spots.html', context)
 
+# 観光地削除
 def spot_delete(request, pk):
     spot = get_object_or_404(Spot, pk=pk)
     if request.method == 'POST':
@@ -169,6 +169,7 @@ def spot_delete(request, pk):
         return redirect('myapp:spot_list')
     return render(request, 'myapp/spot_delete.html', {'spot': spot, 'active_page': 'spot_delete'})
 
+# お気に入りに追加・削除
 @login_required  # ログイン必須にする
 def toggle_favorite(request, pk):
     spot = get_object_or_404(Spot, pk=pk)
@@ -181,6 +182,7 @@ def toggle_favorite(request, pk):
         is_favorite = True
     return JsonResponse({'is_favorite': is_favorite})
 
+# お気に入り一覧の表示
 @login_required  # ログイン必須にする
 def is_favorite(request):
     spots_by_area = defaultdict(lambda: defaultdict(list))
@@ -254,6 +256,7 @@ def logout(request):
     auth_logout(request)
     return redirect(reverse('myapp:login'))
 
+# マイページ表示
 @login_required
 def mypage(request):
     user = request.user
@@ -265,6 +268,7 @@ def mypage(request):
     }
     return render(request, 'myapp/mypage.html', context)
 
+# マイページ情報の更新
 @login_required
 def update_profile(request):
     if request.method == 'POST':
@@ -276,5 +280,6 @@ def update_profile(request):
         form = UserProfileUpdateForm(instance=request.user)
     return render(request, 'myapp/update_profile.html', {'form': form})
 
+# 世界地図の表示
 def worldmap(request):
     return render(request, 'myapp/worldmap.html', {'active_page': 'worldmap'})
