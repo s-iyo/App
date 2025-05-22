@@ -29,3 +29,7 @@
 
 *   効率的に最適な旅行の計画を立てられる。
 *   他の旅行者と情報を共有し、新たな発見やインスピレーションを得られる。
+
+## 参考にしたWebページ
+*   [FELISSIMO](https://www.felissimo.co.jp/gopeace/)
+*   [airbnb](https://www.airbnb.jp/)
