@@ -42,7 +42,6 @@
     }
   },
 
-
   {
     "model": "myapp.month",
     "pk": 1,

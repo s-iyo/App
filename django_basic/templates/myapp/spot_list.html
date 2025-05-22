@@ -3,7 +3,6 @@
 
 {% block title %}Spot List{% endblock %}
 
-
 {% block content %}
 <div style="margin-left: 280px;">
     <div style="overflow-x: auto; white-space: nowrap; position: sticky; top: 55px; background-color: white; z-index: 3; padding: 20px; text-align: right;">
@@ -51,9 +50,9 @@
                     </a>
                     <button class="favorite-button" data-spot-id="{{ spot.pk }}" style="position: absolute; top: 5px; right: 5px; background: none; border: none; padding: 0; cursor: pointer;">
                         {% if spot.is_favorite %}
-                            <i class="fas fa-heart fa-lg" style="color: rgba(255, 0, 0, 0.6);"></i>
+                            <i class="fas fa-star fa-lg" style="color: rgba(255, 217, 0, 0.8);"></i>
                         {% else %}
-                            <i class="far fa-heart fa-lg" style="color: gray;"></i>
+                            <i class="far fa-star fa-lg" style="color: gray;"></i>
                         {% endif %}
                     </button>
                 </div>
@@ -123,23 +122,49 @@
 
         favoriteButtons.forEach(button => {
             button.addEventListener('click', function(event) {
-                event.preventDefault();
+                event.preventDefault(); // デフォルトの動作をキャンセル
                 const spotId = this.dataset.spotId;
                 const icon = this.querySelector('i');
 
-                fetch(`/myapp/spot/${spotId}/toggle_favorite/`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.is_favorite) {
-                            icon.classList.remove('far');
-                            icon.classList.add('fas');
-                            icon.style.color = 'rgba(255, 0, 0, 0.6)';
-                        } else {
-                            icon.classList.remove('fas');
-                            icon.classList.add('far');
-                            icon.style.color = 'gray';
-                        }
-                    });
+                const originalText = button.textContent;
+                button.textContent = 'Loading...';
+                button.disabled = true;
+
+                // CSRFトークンを取得
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+                fetch(`/myapp/spot/${spotId}/toggle_favorite/`, {
+                    method: 'POST', // POSTリクエストを使用
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken // CSRFトークンをヘッダーに設定
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.is_favorite) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        icon.style.color = 'rgba(255, 217, 0, 0.8)';
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        icon.style.color = 'gray';
+                    }
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                })
+                .finally(() => {
+                    // ローディングインジケーターを非表示
+                    button.textContent = originalText;
+                    button.disabled = false;
+                });
             });
         });
     });

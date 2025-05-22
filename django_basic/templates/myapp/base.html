@@ -9,172 +9,167 @@
     <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
     <link rel="icon" href="{% static 'myapp/images/favicon.ico' %}">
     <style>
+        .body{
+            color: #fcf8f8;
+        }
 
-    .body{
-        color: #fcf8f8;
-    }
+        .sidebar {
+            width: 280px;
+            background-color: #fceded;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            border-radius: 0px 30px 0px 0px; /* 上左、上右、下右、下左 */
+            z-index: 1001;
+        }
 
-    .sidebar {
-        width: 280px;
-        background-color: #fceded;
-        padding: 20px;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: 0;
-        overflow-y: auto;
-        border-radius: 0px 30px 0px 0px; /* 上左、上右、下右、下左 */
-        z-index: 1001;
-    }
+        /*観光スポット一覧*/
+        .sidebar2{
+            width: 260px;
+            background-color: #f8dcdc;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 100;
+            left: 0;
+            overflow-y: auto;
+            border-radius: 0px 30px 0px 0px;
+        }
 
-    /*リスト*/
-    .sidebar2{
-        width: 260px;
-        background-color: #f8dcdc;
-        padding: 20px;
-        height: 100vh;
-        position: fixed;
-        top: 100;
-        left: 0;
-        overflow-y: auto;
-        border-radius: 0px 30px 0px 0px;
-    }
+        /*観光地を追加*/
+        .sidebar3{
+            width: 240px;
+            background-color: #f1b8b8;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 100;
+            left: 0;
+            overflow-y: auto;
+            border-radius: 0px 30px 0px 0px;
+        }
 
-    /*観光地を追加*/
-    .sidebar3{
-        width: 240px;
-        background-color: #f1b8b8;
-        padding: 20px;
-        height: 100vh;
-        position: fixed;
-        top: 100;
-        left: 0;
-        overflow-y: auto;
-        border-radius: 0px 30px 0px 0px;
-    }
+        /*国を追加*/
+        .sidebar4{
+            width: 220px;
+            background-color: #ea9595;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 100;
+            left: 0;
+            overflow-y: auto;
+            border-radius: 0px 30px 0px 0px;
+        }
 
-    /*国を追加*/
-    .sidebar4{
-        width: 220px;
-        background-color: #ea9595;
-        padding: 20px;
-        height: 100vh;
-        position: fixed;
-        top: 100;
-        left: 0;
-        overflow-y: auto;
-        border-radius: 0px 30px 0px 0px;
-    }
+        /*観光地を選択*/
+        .sidebar5{
+            width: 200px;
+            background-color: #e27272;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 100;
+            left: 0;
+            overflow-y: auto;
+            border-radius: 0px 30px 0px 0px;
+        }
 
-    /*観光地を選択*/
-    .sidebar5{
-        width: 200px;
-        background-color: #e27272;
-        padding: 20px;
-        height: 100vh;
-        position: fixed;
-        top: 100;
-        left: 0;
-        overflow-y: auto;
-        border-radius: 0px 30px 0px 0px;
-    }
+        /*お気に入り*/
+        .sidebar6{
+            width: 180px;
+            background-color: #dc4e4e;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 100;
+            left: 0;
+            overflow-y: auto;
+            border-radius: 0px 30px 0px 0px;
+        }
 
-    /*お気に入り*/
-    .sidebar6{
-        width: 180px;
-        background-color: #dc4e4e;
-        padding: 20px;
-        height: 100vh;
-        position: fixed;
-        top: 100;
-        left: 0;
-        overflow-y: auto;
-        border-radius: 0px 30px 0px 0px;
-    }
+        /*世界地図*/
+        .sidebar7{
+            width: 160px;
+            background-color: #d52b2b;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 100;
+            left: 0;
+            overflow-y: auto;
+            border-radius: 0px 30px 0px 0px;
+        }
 
-    /*世界地図*/
-    .sidebar7{
-        width: 160px;
-        background-color: #d52b2b;
-        padding: 20px;
-        height: 100vh;
-        position: fixed;
-        top: 100;
-        left: 0;
-        overflow-y: auto;
-        border-radius: 0px 30px 0px 0px;
-    }
+        .content {
+            padding: 20px;
+            width: 100%;
+            margin-top: 60px;
+        }
 
-    .content {
-        padding: 20px;
-        width: 100%;
-        margin-top: 60px;
-    }
+        .navbar-brand {
+            color: black;
+            font-family: sans-serif;
+            font-size: 27px;
+            font-weight: bold;
+        }
 
-    .navbar-brand {
-        color: black;
-        font-family: sans-serif;
-        font-size: 27px;
-        font-weight: bold;
-    }
+        .nav-link{
+            color: black;
+        }
 
-    .nav-link{
-        color: black;
-    }
+        .nav-link:hover {
+            color: black;
+            font-weight: bold;
+        }
 
-    .nav-link:hover {
-        color: black;
-        font-weight: bold;
-    }
+        .navbar-brand:hover {
+            color: black;
+        }
 
-    .navbar-brand:hover {
-        color: black;
-    }
+        .badge-with-margin {
+            font-size: 15px;
+            padding: 0.3em 0.5em;
+        }
 
-    .badge-with-margin {
-        font-size: 15px;
-        padding: 0.3em 0.5em;
-    }
+        .tag-button, .month-button {
+            cursor: pointer;
+            border: none;
+        }
 
-    .tag-button, .month-button {
-        cursor: pointer;
-        border: none;
-    }
+        .selected {
+            opacity: 0.5;
+        }
 
-    .selected {
-        opacity: 0.5;
-    }
+        .header {
+            background-color: #fdf7f7;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    .header {
-        background-color: #fdf7f7;
-        padding: 10px 20px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .auth-buttons {
-        display: flex;
-        gap: 10px;
-    }
-
-
-    ::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
         }
 
 
-
+        ::-webkit-scrollbar {
+                width: 0px;
+                background: transparent;
+            }
 
     </style>
-
 </head>
 <body>
     <header class="header">
@@ -210,7 +205,7 @@
                             </li>
                             <div class="sidebar6">
                                 <li class="nav-item">
-                                    <a class="nav-link {% if active_page == 'is_favorite' %}font-weight-bold{% endif %}" href="{% url 'myapp:is_favorite' %}">お気に入り❤️</a>
+                                    <a class="nav-link {% if active_page == 'is_favorite' %}font-weight-bold{% endif %}" href="{% url 'myapp:is_favorite' %}">お気に入り⭐</a>
                                 </li>
                                 <div class="sidebar7">
                                     <li class="nav-item">
@@ -222,12 +217,10 @@
                 </div>
             </ul>
         </div>
-
     <div class="content">
         {% block content %}
         {% endblock %}
     </div>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -282,7 +275,6 @@
                 }
             });
         }
-
     </script>
 </body>
 </html>

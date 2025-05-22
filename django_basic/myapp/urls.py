@@ -12,10 +12,10 @@ urlpatterns = [
     path('spot/create/', views.spot_create, name='spot_create'),            # 観光地の追加
     path('spot/<int:pk>/delete/', views.spot_delete, name='spot_delete'),   # 削除ページのURL
     path('spot/<int:pk>/detail/', views.spot_detail, name='spot_detail'),   # 観光地の詳細
-    path('spot/favorites/', views.is_favorite, name='is_favorite'),  # お気に入りページ
+    path('spot/favorites/', views.is_favorite, name='is_favorite'),         # お気に入りページ
     path('spot/select/', views.calculate_overlapping_months, name='calculate_overlapping_months'),  # ベストシーズンの表示
     path('spot/<int:pk>/toggle_favorite/', views.toggle_favorite, name='toggle_favorite'),  # お気に入り
-    path('worldmap/', views.worldmap, name='worldmap'),  # 世界地図ページ
+    path('worldmap/', views.worldmap, name='worldmap'),                     # 世界地図ページ
 
     path('', views.spot_list, name='spot_list'),
     path('signup/', views.signup, name='signup'),

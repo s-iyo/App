@@ -38,7 +38,7 @@ class CountryForm(forms.ModelForm):
         name = self.cleaned_data.get('name')
         area = self.cleaned_data.get('area')
 
-        # 既存の国を検索 (エリアと国名で一意性をチェック)
+        # 既存の国を検索
         existing_country = Country.objects.filter(area=area, name=name).exclude(pk=self.instance.pk).first()
 
         if existing_country:

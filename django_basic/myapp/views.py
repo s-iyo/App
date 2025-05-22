@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from .forms import SpotForm, CountryForm, CustomUserCreationForm, UserProfileUpdateForm
 from collections import defaultdict
 from .models import Spot, Tags, Month, FavoriteSpot
